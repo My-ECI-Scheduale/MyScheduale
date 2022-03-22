@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    image: 'my-eci-schedule:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/admin
+      - SPRING_DATASOURCE_USERNAME=admin  
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+
+  db:
+    container_name: db
+    image: postgres:14-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=admin
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    depends_on:
+      - db
+    ports:
+      - "9000:9000"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=password
+      - PGADMIN_LISTEN_PORT=9000
+
+volumes:
+  db_data:
+  pgadmin_data:
