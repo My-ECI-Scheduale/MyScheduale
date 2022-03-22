@@ -1,10 +1,10 @@
 FROM openjdk:11
 
-WORKDIR /MyEciSchedule/back/bin
+WORKDIR /MyEciScheduale/back/bin
 
 
-COPY /target/classes /MyEciSchedule/back/bin/classes
+COPY /target/classes /MyEciScheduale/back/bin/classes
 
-COPY /target/dependency /MyEciSchedule/back/bin/dependency
+COPY /target/dependency /MyEciScheduale/back/bin/dependency
 
-CMD ["java","-cp","./classes:./dependency/*","edu.eci.arsw.myecischedule.MyEciScheduleApplication"]
+CMD ["java","-cp","./classes:./dependency/*","edu.eci.arsw.myecischeduale.MyEciSchedualeApplication"]

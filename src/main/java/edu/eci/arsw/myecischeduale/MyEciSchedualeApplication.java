@@ -1,13 +1,13 @@
-package edu.eci.arsw.myecischedule;
+package edu.eci.arsw.myecischeduale;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyEciScheduleApplication {
+public class MyEciSchedualeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyEciScheduleApplication.class, args);
+		SpringApplication.run(MyEciSchedualeApplication.class, args);
 	}
 
 }

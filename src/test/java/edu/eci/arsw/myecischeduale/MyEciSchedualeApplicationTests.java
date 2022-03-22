@@ -1,10 +1,10 @@
-package edu.eci.arsw.myecischedule;
+package edu.eci.arsw.myecischeduale;
 
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MyEciScheduleApplicationTests {
+class MyEciSchedualeApplicationTests {
 
 
 
