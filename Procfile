@@ -1,1 +1,1 @@
-web: java -cp target/classes/:target/dependency/* edu.eci.arsw.myecischeduale.MyEciSchedualeApplication
+web: java -Dserver.port=$PORT -jar target/my-eci-scheduale-0.0.1-SNAPSHOT.jar
