@@ -3,7 +3,7 @@ var taskApi = (function(){
     function getData(){
         $.ajax({
             type:"GET",
-            url: "http://localhost:8080/api/schedule"
+            url: "http://localhost:8080/api/scheduale"
         }).then(function(data){
             
         });

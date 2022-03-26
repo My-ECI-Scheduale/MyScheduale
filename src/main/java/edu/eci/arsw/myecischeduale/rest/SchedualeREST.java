@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.eci.arsw.myecischeduale.model.Schedule;
-import edu.eci.arsw.myecischeduale.service.ScheduleService;
+import edu.eci.arsw.myecischeduale.model.Scheduale;
+import edu.eci.arsw.myecischeduale.service.SchedualeService;
 
 @RestController
-@RequestMapping("/api/schedule")
-public class ScheduleREST {
+@RequestMapping("/api/scheduale")
+public class SchedualeREST {
     
     @Autowired
-    private ScheduleService scheduleService;
+    private SchedualeService schedualeService;
 
     @PostMapping
-    private ResponseEntity<Schedule> save (@RequestBody Schedule schedule){
-        Schedule temp = scheduleService.create(schedule);
+    private ResponseEntity<Scheduale> save (@RequestBody Scheduale scheduale){
+        Scheduale temp = schedualeService.create(scheduale);
         try {
-            return ResponseEntity.created(new URI("/api/schedule"+temp.getId())).body(temp);
+            return ResponseEntity.created(new URI("/api/scheduale"+temp.getId())).body(temp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
     @GetMapping
-    private ResponseEntity<?> getAllSchedules (){
+    private ResponseEntity<?> getAllScheduales (){
         try {
-            List<Schedule> data = scheduleService.getAllSchedules();
+            List<Scheduale> data = schedualeService.getAllScheduales();
             return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
         } catch (Exception e) {
             e.printStackTrace();
