@@ -7,15 +7,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Customer")
+@Table(name = "Customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
 
-    public Customer(Long id, String name) {
-        this.id = id;
+    public Customer(String name) {
         this.name = name;
     }
     public Long getId() {

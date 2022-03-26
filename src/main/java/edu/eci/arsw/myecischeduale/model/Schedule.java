@@ -1,85 +1,57 @@
 package edu.eci.arsw.myecischeduale.model;
 
-<<<<<<< HEAD
-
 
 import java.util.Date;
 
-=======
->>>>>>> kanban
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-<<<<<<< HEAD
-=======
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
->>>>>>> kanban
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Kanban")
-public class Kanban {
-<<<<<<< HEAD
+@Table(name = "Schedules")
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "CreationDate", nullable = false)
     private Date creationDate;
-
-    
-    public Kanban(Long id, Date creationDate) {
-        this.id = id;
-        this.creationDate = creationDate;
-    }
-
-
-=======
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     @ManyToOne
-    @JoinColumn(name = "IdCDate", nullable = false)
-    private CDate idCDate;
+    @JoinColumn(name = "Owner", nullable = false)
+    private Customer owner;
 
-    public Kanban(CDate idCDate) {
-        this.idCDate = idCDate;
+    public Schedule(Customer owner) {
+        this.creationDate = new Date();
+        this.owner = owner;
     }
 
->>>>>>> kanban
     public Long getId() {
         return id;
     }
-
-<<<<<<< HEAD
-=======
-    public CDate getIdCDate() {
-        return idCDate;
-    }
->>>>>>> kanban
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-<<<<<<< HEAD
 
     public Date getCreationDate() {
         return creationDate;
     }
 
+    public Customer getOwner() {
+        return owner;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-
-    
-=======
-    public void setIdCDate(CDate idCDate) {
-        this.idCDate = idCDate;
+    public void setOwner(Customer owner) {
+        this.owner = owner;
     }
 
     @Override
@@ -87,5 +59,4 @@ public class Kanban {
         // TODO Auto-generated method stub
         return super.toString();
     }
->>>>>>> kanban
 }
