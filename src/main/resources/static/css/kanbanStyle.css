@@ -26,6 +26,7 @@ body {
     padding: 10px 15px;
     box-sizing: border-box;
     color: white;
+    background-color: #100BD4;
     border-radius: 5px;
     cursor: pointer;
 }

@@ -1,6 +1,7 @@
 package edu.eci.arsw.myecischeduale.rest;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,25 @@ public class ScheduleREST {
     private ScheduleService scheduleService;
 
     @PostMapping
-    private ResponseEntity<Schedule> guardar (@RequestBody Schedule schedule){
+    private ResponseEntity<Schedule> save (@RequestBody Schedule schedule){
         Schedule temp = scheduleService.create(schedule);
         try {
             return ResponseEntity.created(new URI("/api/schedule"+temp.getId())).body(temp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @GetMapping
+    private ResponseEntity<?> getAllSchedules (){
+        try {
+            List<Schedule> data = scheduleService.getAllSchedules();
+            return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Error al obtener los horarios", HttpStatus.NOT_FOUND);
+        }
+        
+        
     }
 }
