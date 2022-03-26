@@ -1,6 +1,7 @@
 package edu.eci.arsw.myecischeduale.model;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Scheduales")
-public class Scheduale {
+public class Scheduale implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
