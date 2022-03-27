@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  #navbar{
+    justify-content: flex-end;
+    position:fixed;
+    display:flex;
+    top:0px;
+    left:0;
+    width:100%;
+    padding:0.01%;
+    background:#be3144;
+    margin-left:auto;
+  }
+  .nav-lis{
+    list-style:none;
+    display:flex;
+    margin-right:10px;
+  }
+  #navbar li{
+    margin-right: 50px;
+  }
+  .nav-a{
+    padding:0.3%;
+    color:white;
+    font-size:24px;
+    margin:auto;
+    text-decoration:none;
+  }
+  
+  .code{
+    padding:3%;
+    background:white;
+    color:blue;
+    width:80%;
+    border-radius:10px;
+  }
+  p{
+    color: white;
+    margin:10%;
+  }
+  
+  .welcome-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:#303841;
+    width:100%;
+    padding:5%;
+  }
+  .projects-section h3{
+    color:white;
+    margin:5%;
+  }
+  .welcome-section h1{
+    color:white;
+    font-size:500%;
+  }
+  .welcome-section p{
+    color:#be3144;
+    margin:5% 24%;
+    font-size:200%;
+    
+  }
+  .projects-section{
+    align-items: center;
+    background-color:#45567d;
+    padding:10% 25%;
+  }
+  
+  .section-header {
+    font-size:300%;
+    text-align:center;
+    color:white;
+    width: 100%;
+    margin: 0 auto 6rem auto;
+    border-bottom: 0.2rem solid white;
+  }
+  
+  #profile-link{
+    align-items: center;
+    background-color:#303841;
+    padding:10% 25%;
+  }
+  
+  #image{
+    
+    width:10%;
+  }
