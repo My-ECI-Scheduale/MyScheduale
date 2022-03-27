@@ -1,67 +1,34 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/home.css">
-        <title>Home Page</title>
-    </head>
-  <nav id="navbar">
-    <ul class="nav-lis">
-      <li>
-        <a class="nav-a" href="#welcome-section"> About</a>
-      </li>
-      <li>
-        <a class="nav-a"  href="#Api-info">Api info</a>
-      </li>
-      <li>
-        <a class="nav-a"  href="#profile-link">Contact</a>
-      </li>
-    </ul>
-  </nav>  
-  <section id="welcome" class="welcome-section">
-    <h1>Bienvenido a esta la pagina de CambiandoAndo API</h1>
-    <p>CambiandoAndo es una api enfocada a la conversion de unidades la cual esta desarollada en Java con un nivel de extencion muy alto permitiendo estar en constaten desarrollo.</p>
-    
-<div>
-    <img
-        class="project-image"
-        src="/img/welcome.png"
-        alt="Cambio"
-      />
-   </div>
- 
-    </section>
-  
-  
-  <section id="Api-info" class="projects-section">
-    <h2 class="section-header">API Key</h2>
-    <div>
-      <p>Nuestra API va a tener el siguiente link de conexion y mediante el uso de rutas vamos a poder acceder a las diferentes converciones</p>
-      <h3>Base URL</h3>
-      <div class="code">
-        https://areptaller1.herokuapp.com/
-      </div>
-      <h3>
-        Agregardirecion de convercion deseada</h3><p> Como parametro value el que se desea convertir.
-      </p>
-      <div class="code">
-        https://areptaller1.herokuapp.com/Temperatura/Fahrenheit?value=ValorEnFahrenheitAConvertir
-      </div>
-      
+<body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <script src="js/home.js"></script>
+    <title>Home Page</title>
+</head>
+<div id="navbar"onload="navbar()"></div>
+<section id="welcome" class="welcome-section">
+    <h1>Bienvenido a ECI-Scheduale</h1>
+    <p>
+        Permitenos ayudarte a manejar mejor tu horario si te parece
+        arranquemos.
+    </p>
+
+    <div class="Items">
+        <h3>Ver horario</h3>
+        <a href="/kanbanView.html"><img class="project-image" src="/img/scheduale.png" alt="Scheduale" /></a>
     </div>
-  </section>
-  <section id="profile-link">
-    <div class="section-header">
-    <h2>Know more about me</h2>
-      <h2 id="consultaFar"></h2>
-  </div>
-    <div class="contact-links">
-    <a
-      href="https://github.com/SebastianOspina24"
-      target="_blank"
-      class="btn contact-details"
-      > <img id="image"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></a
-    >
-  </section>
+
+</section>
+
+
+<section id="Api-info" class="projects-section">
+    <h2 class="section-header">Soporte</h2>
+    <div>
+        <p>Esta todo bien?, necesitas soporte tecnico, lo lamento no esta disponible sigue intentando.....</p>
+    </div>
+</section>
+</body>
 </html>

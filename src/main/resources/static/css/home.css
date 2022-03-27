@@ -2,33 +2,12 @@
     margin: 0;
     padding: 0;
   }
+
   #navbar{
-    justify-content: flex-end;
-    position:fixed;
-    display:flex;
-    top:0px;
-    left:0;
-    width:100%;
-    padding:0.01%;
-    background:#be3144;
-    margin-left:auto;
+      width: 100%;
+    position: fixed;
   }
-  .nav-lis{
-    list-style:none;
-    display:flex;
-    margin-right:10px;
-  }
-  #navbar li{
-    margin-right: 50px;
-  }
-  .nav-a{
-    padding:0.3%;
-    color:white;
-    font-size:24px;
-    margin:auto;
-    text-decoration:none;
-  }
-  
+
   .code{
     padding:3%;
     background:white;
@@ -43,12 +22,12 @@
   
   .welcome-section{
     display: flex;
+    color: white;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color:#303841;
     width:100%;
-    padding:5%;
+    padding:5% 0%;
   }
   .projects-section h3{
     color:white;
@@ -59,15 +38,18 @@
     font-size:500%;
   }
   .welcome-section p{
-    color:#be3144;
+    color:white;
     margin:5% 24%;
     font-size:200%;
     
   }
   .projects-section{
     align-items: center;
-    background-color:#45567d;
+    background-color:#9c3bc2;
     padding:10% 25%;
+  }
+  .Items{
+      text-align: center;
   }
   
   .section-header {
@@ -84,8 +66,6 @@
     background-color:#303841;
     padding:10% 25%;
   }
-  
-  #image{
-    
-    width:10%;
-  }
+  .project-image{
+    width: 40%;
+}
