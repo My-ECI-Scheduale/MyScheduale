@@ -1,14 +1,12 @@
 package edu.eci.arsw.myecischeduale.rest;
 
-import java.net.URI;
 
+import java.util.Optional;
+import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.eci.arsw.myecischeduale.model.Customer;
@@ -21,8 +19,10 @@ public class CustomerREST {
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping("/api/Userexist")
-    private ResponseEntity<Boolean> UserExist(@RequestParam String c){
-        return null;
+    @PostMapping("/login")
+    private ResponseEntity<Boolean> getCustomerByName(@PathParam("name")String name){
+        Optional<Customer> user = customerService.findByName(name);
+        System.out.println(user.isPresent());
+        return ResponseEntity.ok(user.isPresent());
     }
 }
