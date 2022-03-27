@@ -17,6 +17,7 @@ public class Customer {
     public Customer(String name) {
         this.name = name;
     }
+    public Customer() {}
     public Long getId() {
         return id;
     }

@@ -31,6 +31,8 @@ public class Scheduale implements Serializable{
         this.owner = owner;
     }
 
+    public Scheduale() {}
+
     public Long getId() {
         return id;
     }

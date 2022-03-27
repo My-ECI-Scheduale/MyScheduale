@@ -26,6 +26,8 @@ public class Assignature implements Serializable{
         this.creditos = creditos;
     }
 
+    public Assignature() {}
+
     public Long getId() {
         return id;
     }

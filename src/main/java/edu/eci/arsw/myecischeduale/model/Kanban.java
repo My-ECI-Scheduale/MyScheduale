@@ -23,6 +23,8 @@ public class Kanban {
         this.idCDate = idCDate;
     }
 
+    public Kanban() {}
+
     public Long getId() {
         return id;
     }

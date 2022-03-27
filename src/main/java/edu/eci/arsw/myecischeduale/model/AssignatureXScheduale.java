@@ -17,6 +17,8 @@ public class AssignatureXScheduale{
     @EmbeddedId
     public EventId id;
 
+    public AssignatureXScheduale() {}
+
     public AssignatureXScheduale(EventId id) {
         this.id = id;
     }

@@ -27,6 +27,8 @@ public class KanbanColumn {
         this.name = name;
     }
 
+    public KanbanColumn() {}
+
     public void setId(Long id) {
         this.id = id;
     }
