@@ -22,6 +22,9 @@ public class AssignatureXScheduale{
     public AssignatureXScheduale(EventId id) {
         this.id = id;
     }
+    public AssignatureXScheduale(Scheduale schedualeId, Assignature assignatureId) {
+        this.id = new EventId(schedualeId,assignatureId);
+    }
 
     public EventId getId() {
         return id;
@@ -29,6 +32,21 @@ public class AssignatureXScheduale{
 
     public void setId(EventId id) {
         this.id = id;
+    }
+    public Scheduale getSchedualeId() {
+        return id.getSchedualeId();
+    }
+
+    public void setSchedualeId(Scheduale schedualeId) {
+        id.setSchedualeId(schedualeId);;
+    }
+
+    public Assignature getAssignatureId() {
+        return id.getAssignatureId();
+    }
+
+    public void setAssignatureId(Assignature assignatureId) {
+        id.setAssignatureId(assignatureId);
     }
 
 }
@@ -42,6 +60,13 @@ class EventId implements Serializable {
     @ManyToOne
     @JoinColumn(name = "assignatureId", nullable = false)
     private Assignature assignatureId;
+
+    
+    public EventId(Scheduale schedualeId, Assignature assignatureId) {
+        this.schedualeId = schedualeId;
+        this.assignatureId = assignatureId;
+    }
+    public EventId(){}
 
     public Scheduale getSchedualeId() {
         return schedualeId;

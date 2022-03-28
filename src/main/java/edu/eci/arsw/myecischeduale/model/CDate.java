@@ -12,24 +12,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Date")
+@Table(name = "date")
 public class CDate {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "HoraInicio", nullable = false)
+    @Column(name = "hora_inicio", nullable = false)
     private String horaInicio;
-    @Column(name = "HoraFinal", nullable = false)
+    @Column(name = "hora_final", nullable = false)
     private String horaFinal;
     @Column(name = "Dia", nullable = false)
     private char dia;
     @ManyToOne
-    @JoinColumn(name = "IdAssignature", nullable = false)
+    @JoinColumn(name = "id_assignature", nullable = false)
     private Assignature idAssignature;
 
     
- 
-
     public CDate() {}
 
     public Long getId() {

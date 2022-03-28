@@ -30,4 +30,7 @@ public class CDateService {
     public Optional<CDate> findById(Long id){
         return cdateRepository.findById(id);
     }
+    public List<CDate> getCDates(Long id){
+        return cdateRepository.getCDates(id);
+    }
 }
