@@ -10,12 +10,15 @@ var kanbanApi = (function(){
             console.log(data);
             var cont = 1;
             data.forEach(element => {
+                // Add first dropzone
+                $("#"+element.name).append("<div class=\"dropzone\"></div>");
                 element.items.forEach(task => {
-                    // Create the new item
-                    $("#"+element.name).append("<div contenteditable=\"true\" id=\"task"+cont+"\" class=\"item-input\" draggable=\"true\">"+task+"</div>");
+                    var newItem = parseHtml("<div id=\"task"+cont+"\" class=\"kanban-item\">"
+                    +"<div contenteditable=\"true\" id=\"t"+cont+"\" class=\"item-input\" draggable=\"true\">"+task+"</div>"
+                    +"<div class=\"dropzone\"></div>"
+                    +"</div>");
+                    $("#"+element.name).append(newItem);
                     cont += 1;
-                    // Create the dropzone for the new item
-                    $("#"+element.name).append("<div class=\"dropzone\"></div>");
                 });
             });
         });
@@ -30,6 +33,12 @@ var kanbanApi = (function(){
             }    
         }
         console.log(kanbanData);
+    }
+
+    function parseHtml(html){
+        var t = document.createElement('template');
+        t.innerHTML = html;
+        return t.content;
     }
 
     return {

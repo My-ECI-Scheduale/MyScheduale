@@ -33,7 +33,7 @@ public class KanbanREST {
     private ResponseEntity<?> getKanbanById(@PathVariable("kanbanId") String kanbanId){
         try {
             ArrayList<KanbanColumn> defaultData = new ArrayList<>();
-            String[] pendienteItems = {"Terminar drag&drop", "Implementar concurrencia"};
+            String[] pendienteItems = {"Terminar drag & drop", "Implementar concurrencia"};
             String[] enProgresoItems = {"Crear controlador rest", "Crear vista"};
             String[] terminadoItems = {"Crear modelo y tablas"};
             KanbanColumn pendiente = new KanbanColumn(Long.valueOf("1"), "pendiente", pendienteItems);
