@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	// Schedule Template - by CodyHouse.co
 	function ScheduleTemplate( element ) {
 		this.element = element;
@@ -31,6 +31,13 @@
 	ScheduleTemplate.prototype.initSchedule = function() {
 		this.scheduleReset();
 		this.initEvents();
+	};
+
+	ScheduleTemplate.prototype.RegenetareElements = function(){
+		Util.removeClass(this.element, 'cd-schedule--loading js-schedule-loaded');
+		this.resetEventsStyle();
+		Util.addClass(this.element, 'js-schedule-loaded');
+		this.placeEvents();
 	};
 	
 
@@ -335,6 +342,27 @@
 		return timeStamp;
 	};
 
+	(function (){
+		fetch("/api/schedule/one",{method:'GET'}).then(data=>data.json()).then(data=>{
+			data.forEach(element => {
+				fetch("/api/schedule/assiganture?id="+element.id,{method:'GET'}).then(res=>res.json()).then(res=>{
+					res.forEach(date=>{
+						document.getElementById(date.dia).insertAdjacentHTML('beforeend',tareahtml(date.horaInicio,date.horaFinal,element.name,element.id));
+					});
+			})
+			});
+			for(var i = 0; i < scheduleTemplateArray.length; i++) {
+				scheduleTemplateArray[i].RegenetareElements();
+			}
+		});
+	})();
+	
+	function tareahtml(hora1,hora2,assignaturaname,assignaturaid){
+		return("<li class=\"cd-schedule__event\"><a data-start=\""+hora1+"\" data-end=\""+hora2+"\" data-content=\"event-abs-circuit\" data-event=\"event-1\" href=\"#\""
+		+"onclick=\"openkanban("+assignaturaid+")\">"
+				+"<em class=\"cd-schedule__name\">"+assignaturaname+"</em></a></li>");
+	}
+
 	var scheduleTemplate = document.getElementsByClassName('js-cd-schedule'),	
 		scheduleTemplateArray = [],
 		resizing = false;
@@ -344,7 +372,7 @@
 				scheduleTemplateArray.push(new ScheduleTemplate(scheduleTemplate[i]));
 			})(i);
 		}
-
+		checkResize();
 		window.addEventListener('resize', function(event) { 
 			// on resize - update events position and modal position (if open)
 			if( !resizing ) {
@@ -361,7 +389,6 @@
 				}
 			}
 		});
-
 		function checkResize(){
 			for(var i = 0; i < scheduleTemplateArray.length; i++) {
 				scheduleTemplateArray[i].scheduleReset();
@@ -369,4 +396,4 @@
 			resizing = false;
 		};
 	}
-}());
+})();
