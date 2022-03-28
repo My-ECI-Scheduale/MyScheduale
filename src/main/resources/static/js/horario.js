@@ -1,5 +1,6 @@
-async function scheduleLoad(){
-    return fetch("/api/schedule/one",{method:'GET'}).then(data=>data.json()).then(data=>{
+scheduleLoad();
+function scheduleLoad(){
+    fetch("/api/schedule/one",{method:'GET'}).then(data=>data.json()).then(data=>{
         data.forEach(element => {
             fetch("/api/schedule/assiganture?id="+element.id,{method:'GET'}).then(res=>res.json()).then(res=>{
                 res.forEach(date=>{
@@ -7,7 +8,6 @@ async function scheduleLoad(){
                 });
         })
         });
-        return 0
     });
 }
 

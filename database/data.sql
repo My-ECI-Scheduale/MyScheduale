@@ -6,11 +6,11 @@ INSERT INTO ASSIGNATURES (id,Name) VALUES (5,'EGR1');
 
 INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (1,'07:00','10:00','L',1);
 INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (2,'08:30','10:00','J',2);
-INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (3,'11:30','14:00','V',3);
+INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (3,'11:30','13:00','V',3);
 INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (4,'07:00','08:30','M',1);
-INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (5,'04:00','19:00','X',3);
+INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (5,'16:00','19:00','X',3);
 
-INSERT INTO CUSTUMERS (id,name) VALUES (0,'baez');
+INSERT INTO CUSTOMERS (id,name) VALUES (0,'baez');
 
 INSERT INTO schedules(id, creation_date, owner)VALUES (0,current_timestamp,0);
 
