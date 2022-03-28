@@ -18,12 +18,11 @@ public class Assignature implements Serializable{
     private Long id;
     @Column(name = "Name", nullable = false)
     private String name;
-    @Column(name = "Creditos", nullable = false)
-    private int creditos;
 
-    public Assignature(String name, int creditos) {
+
+    public Assignature(String name) {
         this.name = name;
-        this.creditos = creditos;
+
     }
 
     public Assignature() {}
@@ -36,10 +35,6 @@ public class Assignature implements Serializable{
         return name;
     }
 
-    public int getCreditos() {
-        return creditos;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -47,11 +42,6 @@ public class Assignature implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setCreditos(int creditos) {
-        this.creditos = creditos;
-    }
-
     @Override
     public String toString() {
         // TODO Auto-generated method stub

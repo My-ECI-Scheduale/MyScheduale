@@ -17,8 +17,10 @@ public class CDate {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "Hora", nullable = false)
-    private int hora;
+    @Column(name = "HoraInicio", nullable = false)
+    private String horaInicio;
+    @Column(name = "HoraFinal", nullable = false)
+    private String horaFinal;
     @Column(name = "Dia", nullable = false)
     private char dia;
     @ManyToOne
@@ -26,25 +28,38 @@ public class CDate {
     private Assignature idAssignature;
 
     
-    
-    public CDate(Long id, int hora, char dia, Assignature idAssignature) {
-        this.id = id;
-        this.hora = hora;
-        this.dia = dia;
-        this.idAssignature = idAssignature;
-    }
+ 
 
     public CDate() {}
 
     public Long getId() {
         return id;
     }
-    public int getHora() {
-        return hora;
+
+    public CDate(Long id, String horaInicio, String horaFinal, char dia, Assignature idAssignature) {
+        this.id = id;
+        this.horaInicio = horaInicio;
+        this.horaFinal = horaFinal;
+        this.dia = dia;
+        this.idAssignature = idAssignature;
     }
-    public void setHora(int hora) {
-        this.hora = hora;
+
+    public String getHoraInicio() {
+        return horaInicio;
     }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFinal() {
+        return horaFinal;
+    }
+
+    public void setHoraFinal(String horaFinal) {
+        this.horaFinal = horaFinal;
+    }
+
     public char getDia() {
         return dia;
     }
