@@ -30,4 +30,8 @@ public class TaskService {
     public Optional<Task> findById(Long id){
         return taskRepository.findById(id);
     }
+
+    /*public Optional<Task> findByKanbanName(String estado) {
+        return taskRepository.findByKanabanName(estado);
+    }*/
 }
