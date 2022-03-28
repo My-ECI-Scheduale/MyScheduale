@@ -13,10 +13,18 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private String tokenjwt;
 
-    public Customer(String name) {
-        this.name = name;
+    public String getTokenjwt() {
+        return tokenjwt;
     }
+
+    public Customer(Long id, String name, String tokenjwt) {
+        this.id = id;
+        this.name = name;
+        this.tokenjwt = tokenjwt;
+    }
+
     public Customer() {}
     public Long getId() {
         return id;
