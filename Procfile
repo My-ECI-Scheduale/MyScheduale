@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -cp target/classes/:target/dependency/* edu.eci.arsw.myecischeduale.MyEciSchedualeApplication
+web: java -Dserver.port=$PORT -cp target/classes/:target/dependency/* edu.eci.arsw.myecischedule.MyEciScheduleApplication

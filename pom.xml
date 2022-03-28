@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.eci.arsw</groupId>
-	<artifactId>my-eci-scheduale</artifactId>
+	<artifactId>my-eci-schedule</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>my-eci-scheduale</name>
-	<description>Proyecto de arsw  MyScheduale</description>
+	<name>my-eci-schedule</name>
+	<description>Proyecto de arsw  MySchedule</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

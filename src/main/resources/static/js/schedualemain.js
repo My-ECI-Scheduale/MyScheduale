@@ -22,7 +22,7 @@
 		this.modalMaxWidth = 800;
 		this.modalMaxHeight = 480;
 
-		this.animating = false;
+		this.animating = true;
 		this.supportAnimation = Util.cssSupports('transition');
 
 		this.initSchedule();
@@ -32,6 +32,7 @@
 		this.scheduleReset();
 		this.initEvents();
 	};
+	
 
 	ScheduleTemplate.prototype.scheduleReset = function() {
 		// according to the mq value, init the style of the template

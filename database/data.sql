@@ -10,15 +10,15 @@ INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (3,'11:30
 INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (4,'07:00','08:30','M',1);
 INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (5,'04:00','19:00','X',3);
 
-INSERT INTO COSTUMER (id,name) VALUES (0,"baez");
+INSERT INTO CUSTUMERS (id,name) VALUES (0,'baez');
 
-INSERT INTO scheduales(id, creation_date, owner)VALUES (0,current_timestamp,0);
+INSERT INTO schedules(id, creation_date, owner)VALUES (0,current_timestamp,0);
 
-INSERT INTO AssignatureXScheduale (scheduale_id,assignature_Id) VALUES (0,1);
-INSERT INTO AssignatureXScheduale (scheduale_id,assignature_Id) VALUES (0,2);
-INSERT INTO AssignatureXScheduale (scheduale_id,assignature_Id) VALUES (0,3);
-INSERT INTO AssignatureXScheduale (scheduale_id,assignature_Id) VALUES (0,4);
-INSERT INTO AssignatureXScheduale (scheduale_id,assignature_Id) VALUES (0,5);
+INSERT INTO AssignatureXSchedule (schedule_id,assignature_Id) VALUES (0,1);
+INSERT INTO AssignatureXSchedule (schedule_id,assignature_Id) VALUES (0,2);
+INSERT INTO AssignatureXSchedule (schedule_id,assignature_Id) VALUES (0,3);
+INSERT INTO AssignatureXSchedule (schedule_id,assignature_Id) VALUES (0,4);
+INSERT INTO AssignatureXSchedule (schedule_id,assignature_Id) VALUES (0,5);
 
 
 INSERT INTO KANBAN (id,IdCDate) VALUES (1,1);
@@ -32,8 +32,6 @@ INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (2,1,"DOING");
 INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (3,1,"DONE");
 INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (4,2,"TO DO");
 INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (5,2,"DONE");
-
-
 
 
 INSERT INTO TASKS (id,IdKanbanColumn,IdCustomer,isPublic,Title,Description,LastDate) VALUES (1,1,1,True,"Tarea 1","Realizar tarea 1",'2022-03-19T11:43:13Z');
