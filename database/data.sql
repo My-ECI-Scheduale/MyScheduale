@@ -27,15 +27,12 @@ INSERT INTO KANBAN (id,IdCDate) VALUES (3,3);
 INSERT INTO KANBAN (id,IdCDate) VALUES (4,4);
 INSERT INTO KANBAN (id,IdCDate) VALUES (5,5);
 
-INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (1,1,"TO DO");
-INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (2,1,"DOING");
-INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (3,1,"DONE");
-INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (4,2,"TO DO");
-INSERT INTO KANBANCOLUMN (id,IdKanban,Name) VALUES (5,2,"DONE");
+insert into kanban_columns (id,id_kanban,"name") values (1,1,'TO_DO');
+insert into kanban_columns (id,id_kanban,"name") values (2,1,'DOING');
+insert into kanban_columns (id,id_kanban,"name") values (3,1,'DONE');
+insert into kanban_columns (id,id_kanban,"name") values (4,2,'TO_DO');
+insert into kanban_columns (id,id_kanban,"name") values (5,2,'DONE');
 
-
-INSERT INTO TASKS (id,IdKanbanColumn,IdCustomer,isPublic,Title,Description,LastDate) VALUES (1,1,1,True,"Tarea 1","Realizar tarea 1",'2022-03-19T11:43:13Z');
-INSERT INTO TASKS (id,IdKanbanColumn,IdCustomer,isPublic,Title,Description,LastDate) VALUES (2,2,2,False,"Tarea 2","Realizar tarea 2",'2022-03-20T11:43:13Z');
-INSERT INTO TASKS (id,IdKanbanColumn,IdCustomer,isPublic,Title,Description,LastDate) VALUES (3,3,3,False,"Tarea 3","Realizar tarea 3",'2022-03-21T11:43:13Z');
-INSERT INTO TASKS (id,IdKanbanColumn,IdCustomer,isPublic,Title,Description,LastDate) VALUES (4,4,4,True,"Tarea 4","Realizar tarea 4",'2022-03-22T11:43:13Z');
-INSERT INTO TASKS (id,IdKanbanColumn,IdCustomer,isPublic,Title,Description,LastDate) VALUES (5,5,5,True,"Tarea 5","Realizar tarea 5",'2022-03-23T11:43:13Z');
+insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (1,'2022-03-19 13:00:00.59','Realizar tarea 1',true,'2022-03-20 13:00:00.59','Tarea 1',0,1)
+insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (2,'2022-03-21 13:00:00.59','Realizar tarea 2',true,'2022-03-25 13:00:00.59','Tarea 2',0,2)
+insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (3,'2022-03-22 13:00:00.59','Realizar tarea 3',true,'2022-03-24 13:00:00.59','Tarea 3',0,3)
