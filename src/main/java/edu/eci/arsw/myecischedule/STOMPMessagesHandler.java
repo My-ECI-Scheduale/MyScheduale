@@ -27,11 +27,15 @@ public class STOMPMessagesHandler {
 	@MessageMapping("/kanban.{num}")
 	public synchronized void handlePointEvent(Packet ts ,@DestinationVariable String num) throws Exception {
         System.out.println(ts.toString());
-        KanbanColumn k = kanbanColumnRepository.getById(ts.getIdcolumn());
-        Task temp = taskRepository.getById(ts.getTask().getId());
-        ts.getTask().setIdCustomer(temp.getIdCustomer());
-        ts.getTask().setIdKanbanColumn(k);
-		msgt.convertAndSend("/topic/kanban."+num, ts);
-        taskRepository.save(ts.getTask());
+        if(ts.getAction() != 'D'){
+            KanbanColumn k = kanbanColumnRepository.getById(ts.getIdcolumn());
+            Task temp = taskRepository.getById(ts.getTask().getId());
+            ts.getTask().setIdCustomer(temp.getIdCustomer());
+            ts.getTask().setIdKanbanColumn(k);
+            msgt.convertAndSend("/topic/kanban."+num, ts);
+            taskRepository.save(ts.getTask());
+        }else{
+            taskRepository.deleteById(ts.getTask().getId());
+        }
 	}
 }
