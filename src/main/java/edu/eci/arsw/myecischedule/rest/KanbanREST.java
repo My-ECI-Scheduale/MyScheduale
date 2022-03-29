@@ -26,7 +26,7 @@ public class KanbanREST {
 
     @GetMapping("/getById")
     private ResponseEntity<List<Task>> getKanbanColumns(@PathParam("id")Long id){
-        ArrayList<Task> result = new ArrayList();
+        ArrayList<Task> result = new ArrayList<>();
         List<KanbanColumn> columns = kanbanService.getKanbanColumns(id);
         for (KanbanColumn col : columns) {
             result.addAll(taskService.findByIdKanbanColumn(col.getId()));

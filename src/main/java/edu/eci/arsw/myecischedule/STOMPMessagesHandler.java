@@ -7,8 +7,6 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.*;
-
-import edu.eci.arsw.myecischedule.model.Customer;
 import edu.eci.arsw.myecischedule.model.KanbanColumn;
 import edu.eci.arsw.myecischedule.model.Task;
 import edu.eci.arsw.myecischedule.repository.CustomerRepository;
@@ -28,11 +26,13 @@ public class STOMPMessagesHandler {
     TaskRepository taskRepository;
 
 	@MessageMapping("/kanban.{num}")
-	public synchronized void handlePointEvent(Task ts ,@DestinationVariable String num,@PathParam("idcolumn")Long idColumn,@PathParam("idCustomer")Long idCustomer) throws Exception {
+	public synchronized void handlePointEvent(Task ts ,@DestinationVariable String num,@PathParam("idcolumn")Long idColumn) throws Exception {
         System.out.println(ts.toString());
-        Customer c = customerRepository.getById(idCustomer);
         KanbanColumn k = kanbanColumnRepository.getById(idColumn);
-        ts.setIdCustomer(c);
+        Task temp = taskRepository.getById(ts.getId());
+        ts.setIdCustomer(temp.getIdCustomer());
+        ts.setLastDate(temp.getLastDate());
+        ts.setCreationDate(temp.getCreationDate());
         ts.setIdKanbanColumn(k);
 		msgt.convertAndSend("/topic/kanban."+num, ts);
         taskRepository.save(ts);
