@@ -37,6 +37,6 @@ insert into kanban_columns (id,id_kanban,"name") values (7,3,'TO_DO');
 insert into kanban_columns (id,id_kanban,"name") values (8,3,'DOING');
 insert into kanban_columns (id,id_kanban,"name") values (9,3,'DONE');
 
-insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (1,'2022-03-19 13:00:00.59','Realizar tarea 1',true,'2022-03-20 13:00:00.59','Tarea 1',0,1);
-insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (2,'2022-03-21 13:00:00.59','Realizar tarea 2',true,'2022-03-25 13:00:00.59','Tarea 2',0,2);
-insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (3,'2022-03-22 13:00:00.59','Realizar tarea 3',true,'2022-03-24 13:00:00.59','Tarea 3',0,3);
+insert into tasks (id ,description,is_public,id_customer,id_kanban_column) values (1,'Realizar tarea 1',true,0,1);
+insert into tasks (id ,description,is_public,id_customer,id_kanban_column) values (2,'Realizar tarea 2',true,0,2);
+insert into tasks (id, description,is_public,id_customer,id_kanban_column) values (3,'Realizar tarea 3',true,0,3);
