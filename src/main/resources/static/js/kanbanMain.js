@@ -3,15 +3,21 @@ var kanban = (function (){
     var module = kanbanApi;
 
     function getKanbanData(){    
-        module.getKanban(10);
+        module.getKanban();
         loadEventListeners();
     }
 
     function insertItem(element){
+        var newItem = parseHtml("<div id=\"item"+module.getTaskCont+"\" class=\"kanban-item\">"
+                +"<div id=\""+module.getTaskCont+"\" class=\"item-input\" draggable=\"true\"></div>"
+                +"<div class=\"dropzone\"></div>"
+                +"</div>");
+        /*
         var newItem = parseHtml("<div id=\"task"+module.getTaskCont()+"\" class=\"kanban-item\">"
                     +"<div id=\"t"+module.getTaskCont()+"\" class=\"item-input\" draggable=\"true\"></div>"
                     +"<div class=\"dropzone\"></div>"
                     +"</div>");
+        */
         module.sumToCont();
         element.append(newItem);
     }
