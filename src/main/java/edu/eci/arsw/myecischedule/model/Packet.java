@@ -4,12 +4,22 @@ public class Packet {
     private Task task;
     private char action;
     private Long idcolumn;
+    private String username;
 
-    public Packet(Task task, char action, Long idcolumn) {
+    public Packet(Task task, char action, Long idcolumn,String username) {
         this.task = task;
         this.action = action;
         this.idcolumn = idcolumn;
+        this.username = username;
     }
+
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Task getTask() {
         return task;
     }
