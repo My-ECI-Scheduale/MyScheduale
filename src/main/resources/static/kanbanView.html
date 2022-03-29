@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/kanbanStyle.css">
     <script src="js/home.js"></script>
     <title>Kanban</title>
@@ -13,34 +14,39 @@
     <main>
         <h1>Organizador de Tareas ARSW</h1>
     <div class="kanban">
-        <div class="kanban-column">
+        <div id="column1" class="kanban-column">
             <div class="column-title">Pendiente</div>
-            <div class="items">
-                <div contenteditable="true" class="item-input">Terminar Kanban</div>
-                <div class="dropzone"></div>
+            <div id="pendiente" class="items">
+
             </div>
             <button class="add-item" type="button">+</button>
         </div>
-        <div class="kanban-column">
+        <div id="column2" class="kanban-column">
             <div class="column-title">En Progreso</div>
-            <div class="items">
-                <div contenteditable="true" class="item-input"></div>
-                <div class="dropzone"></div>
+            <div id="enProgreso" class="items">
+
             </div>
             <button class="add-item" type="button">+</button>
         </div>
-        <div class="kanban-column">
+        <div id="column3" class="kanban-column">
             <div class="column-title">Terminado</div>
-            <div class="items">
-                <div contenteditable="true" class="item-input"></div>
-                <div class="dropzone"></div>
+            <div id="terminado" class="items">
+
             </div>
             <button class="add-item" type="button">+</button>
+        </div>
+        <div id="column4" class="kanban-column">
+            <div class="column-title">Eliminar</div>
+            <div id="eliminar" class="items">
+                <div class="delete-dropzone">
+                    🗑️
+                </div>
+            </div>
         </div>
     </div>
     </main>
     <!--Load the JavaScripts-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/taskAPI.js"></script>
+    <script src="js/kanbanAPI.js"></script>
+    <script src="js/kanbanMain.js"></script>
 </body>
 </html>

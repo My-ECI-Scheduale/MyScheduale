@@ -1,7 +1,15 @@
-    console.log("entro");
-    fetch('navbar.html')
+    try{
+        var nombre = sessionStorage.getItem('User');
+        if(nombre!=null){
+        fetch('navbar.html')
         .then(res => res.text())
         .then(text => {
-            let newelem = document.getElementById("navbar");
-            newelem.innerHTML = text;
-        })
+            text = text.replace('customer',nombre)
+            document.getElementById("navbar").insertAdjacentHTML('afterbegin',text);
+            });
+        }else{
+            window.location.href = "/"
+        }}catch{
+        window.location.href = "/"
+    }
+
