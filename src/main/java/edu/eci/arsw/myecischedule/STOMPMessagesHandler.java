@@ -35,6 +35,7 @@ public class STOMPMessagesHandler {
             msgt.convertAndSend("/topic/kanban."+num, ts);
             taskRepository.save(ts.getTask());
         }else{
+            msgt.convertAndSend("/topic/kanban."+num, ts);
             taskRepository.deleteById(ts.getTask().getId());
         }
 	}

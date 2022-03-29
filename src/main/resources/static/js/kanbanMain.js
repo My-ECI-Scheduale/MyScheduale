@@ -22,7 +22,7 @@ var kanban = (function () {
         }
     }
 
-    function connectTopic(taskId, isPublic, taskDescription) {
+    function connectTopic() {
         console.info('Connecting to WS...');
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
@@ -40,6 +40,7 @@ var kanban = (function () {
     function getKanbanData() {
         module.getKanban();
         loadEventListeners();
+        connectTopic();
     }
 
     function insertItem(element) {
@@ -50,7 +51,6 @@ var kanban = (function () {
             + "</div>");
         module.sumToCont();
         element.append(newItem);
-        stompClient.send("//", {}, JSON.stringify(pt));
     }
 
     function parseHtml(html) {
@@ -87,6 +87,10 @@ var kanban = (function () {
                 console.log(event);
                 console.log(event.target.parentElement.id);
                 event.dataTransfer.setData("text/plain", event.target.parentElement.id);
+                var taskid = document.getElementById(event.dataTransfer.getData("text/plain")).firstChild.getAttribute("taskId");
+                var task = new Task(taskid, false, "");
+                var newPacket = new Packet(task, 'D', -1, sessionStorage.getItem("User"));
+                stompClient.send("/app/kanban."+sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
             });
             // Add dragstart eventListeners
             $(".items").on("dragleave", ".kanban-item", function (event) {
@@ -156,14 +160,15 @@ var kanban = (function () {
     function verificarEvento(packet) {
         if (sessionStorage.getItem("User") != packet.username) {
             if (packet.action == 'D') {
-                var deleteItem = document.querySelectorAll('[taskId=' + packet.task.id + ']').parentElement;
+                console.log(document.querySelector('[taskId=\"' + packet.task.id + '\"]'));
+                var deleteItem = document.querySelector('[taskId=\"' + packet.task.id + '\"]');
                 deleteItem.remove();
             }
             else if (packet.action == 'C') {
                 module.create(packet.task);
             }
             else if (packet.action == 'U') {
-                var item = document.querySelectorAll('[taskId=' + packet.task.id + ']').parentElement;
+                var item = document.querySelectorAll('[taskId=\"' + packet.task.id + '\"]').parentElement;
                 if (item.innerHTML != packet.task.description) {
                     item.innerHTML = packet.task.description;
                 }
@@ -173,7 +178,7 @@ var kanban = (function () {
                 }
             }
             else if (!packet.task.isPublic) {
-                var item = document.querySelectorAll('[taskId=' + packet.task.id + ']');
+                var item = document.querySelectorAll('[taskId=\"' + packet.task.id + '\"]');
                 item.parentElement.style.backgroundColor = "red";
             }
         }
@@ -181,8 +186,7 @@ var kanban = (function () {
 
     return {
         read: getKanbanData,
-        addItem: insertItem,
-        connectToTopic: connectTopic
+        addItem: insertItem
     }
 
 })();
