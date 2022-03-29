@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.eci.arsw.myecischedule.model.Kanban;
+import edu.eci.arsw.myecischedule.model.KanbanColumn;
 import edu.eci.arsw.myecischedule.repository.KanbanRepository;
 
 @Service
@@ -29,5 +30,8 @@ public class KanbanService {
 
     public Optional<Kanban> findById(Long id){
         return kanbanRepository.findById(id);
+    }
+    public List<KanbanColumn> getKanbanColumns(Long id){
+        return kanbanRepository.getKanbanColumns(id);
     }
 }

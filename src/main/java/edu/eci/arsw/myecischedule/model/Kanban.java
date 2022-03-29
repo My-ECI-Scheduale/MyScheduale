@@ -1,5 +1,8 @@
 package edu.eci.arsw.myecischedule.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,13 +18,12 @@ public class Kanban {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "creation_Date", nullable = false)
+    private Date CreationDate;
+    
     @ManyToOne
-    @JoinColumn(name = "IdCDate", nullable = false)
-    private CDate idCDate;
-
-    public Kanban(CDate idCDate) {
-        this.idCDate = idCDate;
-    }
+    @JoinColumn(name = "assignatureId", nullable = false)
+    private Assignature assignatureid;
 
     public Kanban() {}
 
@@ -29,17 +31,34 @@ public class Kanban {
         return id;
     }
 
-    public CDate getIdCDate() {
-        return idCDate;
+
+
+    public Kanban(Long id, Date creationDate, Assignature assignatureid) {
+        this.id = id;
+        CreationDate = creationDate;
+        this.assignatureid = assignatureid;
     }
 
+    public Assignature getAssignatureid() {
+        return assignatureid;
+    }
+
+    public void setAssignatureid(Assignature assignatureid) {
+        this.assignatureid = assignatureid;
+    }
+
+    public Date getCreationDate() {
+        return CreationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        CreationDate = creationDate;
+    }
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setIdCDate(CDate idCDate) {
-        this.idCDate = idCDate;
-    }
+
 
     @Override
     public String toString() {

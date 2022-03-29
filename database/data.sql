@@ -21,18 +21,22 @@ INSERT INTO AssignatureXSchedule (schedule_id,assignature_Id) VALUES (0,4);
 INSERT INTO AssignatureXSchedule (schedule_id,assignature_Id) VALUES (0,5);
 
 
-INSERT INTO KANBAN (id,IdCDate) VALUES (1,1);
-INSERT INTO KANBAN (id,IdCDate) VALUES (2,2);
-INSERT INTO KANBAN (id,IdCDate) VALUES (3,3);
-INSERT INTO KANBAN (id,IdCDate) VALUES (4,4);
-INSERT INTO KANBAN (id,IdCDate) VALUES (5,5);
+INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (1,1,current_timestamp);
+INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (2,2,current_timestamp);
+INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (3,3,current_timestamp);
+INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (4,4,current_timestamp);
+INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (5,5,current_timestamp);
 
 insert into kanban_columns (id,id_kanban,"name") values (1,1,'TO_DO');
 insert into kanban_columns (id,id_kanban,"name") values (2,1,'DOING');
 insert into kanban_columns (id,id_kanban,"name") values (3,1,'DONE');
 insert into kanban_columns (id,id_kanban,"name") values (4,2,'TO_DO');
-insert into kanban_columns (id,id_kanban,"name") values (5,2,'DONE');
+insert into kanban_columns (id,id_kanban,"name") values (5,2,'DOING');
+insert into kanban_columns (id,id_kanban,"name") values (6,2,'DONE');
+insert into kanban_columns (id,id_kanban,"name") values (7,3,'TO_DO');
+insert into kanban_columns (id,id_kanban,"name") values (8,3,'DOING');
+insert into kanban_columns (id,id_kanban,"name") values (9,3,'DONE');
 
-insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (1,'2022-03-19 13:00:00.59','Realizar tarea 1',true,'2022-03-20 13:00:00.59','Tarea 1',0,1)
-insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (2,'2022-03-21 13:00:00.59','Realizar tarea 2',true,'2022-03-25 13:00:00.59','Tarea 2',0,2)
-insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (3,'2022-03-22 13:00:00.59','Realizar tarea 3',true,'2022-03-24 13:00:00.59','Tarea 3',0,3)
+insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (1,'2022-03-19 13:00:00.59','Realizar tarea 1',true,'2022-03-20 13:00:00.59','Tarea 1',0,1);
+insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (2,'2022-03-21 13:00:00.59','Realizar tarea 2',true,'2022-03-25 13:00:00.59','Tarea 2',0,2);
+insert into tasks (id,creation_date ,description,is_public,last_date,title,id_customer,id_kanban_column) values (3,'2022-03-22 13:00:00.59','Realizar tarea 3',true,'2022-03-24 13:00:00.59','Tarea 3',0,3);
