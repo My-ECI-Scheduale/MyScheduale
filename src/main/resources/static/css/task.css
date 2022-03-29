@@ -1,0 +1,25 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #5000F5;
+    margin: 2%;
+}
+
+.item-input {
+    margin-bottom: 20px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background-color: #100BD4;
+    border-radius: 5px;
+    cursor: pointer;
+}

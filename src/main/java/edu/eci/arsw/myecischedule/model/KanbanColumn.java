@@ -23,7 +23,6 @@ public class KanbanColumn {
     private Kanban idKanban;
     @Column(name = "Name", nullable = false)
     private String name;
-    private ArrayList<String> items = new ArrayList<>();
 
     public KanbanColumn(Kanban idKanban, String name) {
         this.idKanban = idKanban;
@@ -33,22 +32,14 @@ public class KanbanColumn {
     public KanbanColumn(Long id, String name, String[] items) {
         this.id = id;
         this.name = name;
-        for (String i: items) {
-            this.items.add(i);
-        }
     }
 
-    
 
     public KanbanColumn(String name) {
         this.name = name;
     }
 
     public KanbanColumn() {}
-
-    public void addItem(String newItem){
-        items.add(newItem);
-    }
 
     public void setId(Long id) {
         this.id = id;
@@ -62,16 +53,8 @@ public class KanbanColumn {
         this.name = name;
     }
 
-    public void setItems(ArrayList<String> items) {
-        this.items = items;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public ArrayList<String> getItems() {
-        return items;
     }
 
     public Kanban getIdKanban() {

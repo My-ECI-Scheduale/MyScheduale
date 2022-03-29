@@ -15,8 +15,8 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public Task create (Task task){
-        return taskRepository.save(task);
+    public void create (Task task){
+        taskRepository.save(task);
     }
 
     public List<Task> getAllTasks(){
@@ -29,5 +29,9 @@ public class TaskService {
 
     public Optional<Task> findById(Long id){
         return taskRepository.findById(id);
+    }
+
+    public List<Task> findByIdKanbanColumn(Long id) {
+        return taskRepository.findByIdKanbanColumn(id);
     }
 }
