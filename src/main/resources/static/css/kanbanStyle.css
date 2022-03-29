@@ -12,6 +12,10 @@ body {
     background-color: #5000F5;
 }
 
+.kanban-item-selected{
+    background: rgba(255, 1, 1, 0.5);
+}
+
 .kanban-column {
     margin: 2%;
 }

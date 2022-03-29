@@ -17,13 +17,20 @@ var kanbanApi = (function(){
             url: "/api/kanban/getById?id="+sessionStorage.getItem("kanban")
         }).then(function (data) {
             data.forEach(task => {
-                var newItem = parseHtml("<div id=\"item"+cont+"\" class=\"kanban-item\">"
-                +"<div id=\"t"+cont+"\" class=\"item-input\" draggable=\"true\">"+task.description+"</div>"
-                +"<div class=\"dropzone\"></div>"
-                +"</div>");
-                $("#"+task.idKanbanColumn.name).append(newItem);
+                createItem(task);
             });
         });
+    }
+
+    function createItem(task){
+        var newItem = parseHtml("<div id=\"item"+cont+"\" class=\"kanban-item\">"
+                +"<div id=\"t"+cont+"\" class=\"item-input\" draggable=\"" +task.public+ "\" columnId=\""+task.idKanbanColumn.id+"\" taskId=\""+task.id+"\">"+task.description+"</div>"
+                +"<div class=\"dropzone\"></div>"
+                +"</div>");
+                var column = document.getElementById(task.idKanbanColumn.name);
+                column.setAttribute("columnId", task.idKanbanColumn.id);
+                $("#"+task.idKanbanColumn.name).append(newItem);
+                cont += 1;
     }
 
     function parseHtml(html){
@@ -35,6 +42,7 @@ var kanbanApi = (function(){
     return {
         getKanban : getData,
         getTaskCont: getCont,
-        sumToCont: sumCont
+        sumToCont: sumCont,
+        create: createItem
     }
 })();
