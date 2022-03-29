@@ -9,7 +9,7 @@
     <script src="js/home.js"></script>
     <title>Kanban</title>
 </head>
-<body>
+<body onload="kanban.read()">
     <div id="navbar"onload="navbar()"></div>
     <main>
         <h1>Organizador de Tareas ARSW</h1>
@@ -19,21 +19,21 @@
             <div id="pendiente" class="items">
 
             </div>
-            <button class="add-item" type="button">+</button>
+            <button class="add-item" onclick="kanban.addItem()" type="button">+</button>
         </div>
         <div id="column2" class="kanban-column">
             <div class="column-title">En Progreso</div>
             <div id="enProgreso" class="items">
 
             </div>
-            <button class="add-item" type="button">+</button>
+            <button class="add-item" onclick="kanban.addItem()" type="button">+</button>
         </div>
         <div id="column3" class="kanban-column">
             <div class="column-title">Terminado</div>
             <div id="terminado" class="items">
 
             </div>
-            <button class="add-item" type="button">+</button>
+            <button class="add-item" onclick="kanban.addItem()" type="button">+</button>
         </div>
         <div id="column4" class="kanban-column">
             <div class="column-title">Eliminar</div>

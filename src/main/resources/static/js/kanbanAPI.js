@@ -14,7 +14,7 @@ var kanbanApi = (function(){
     function getData(kanbanId){
         $.ajax({
             type:"GET",
-            url: "http://localhost:8080/api/kanban/"+kanbanId
+            url: "/api/kanban/"+kanbanId
         }).then(function (data) {
             console.log(data);
             data.forEach(element => {

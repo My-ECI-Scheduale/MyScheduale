@@ -106,6 +106,7 @@ var kanban = (function (){
 
     return {
         read: getKanbanData,
+        addItem:insertItem 
     }
 
 })();
