@@ -35,13 +35,17 @@ public class Task {
     @Column(name = "LastDate", nullable = false)
     private Date lastDate;
 
-    public Task(KanbanColumn idKanbanColumn, Customer idCustomer, boolean isPublic, String title, String description,
-            Date lastDate) {
+    
+
+    public Task(Long id, KanbanColumn idKanbanColumn, Customer idCustomer, boolean isPublic, String title,
+            String description, Date creationDate, Date lastDate) {
+        this.id = id;
         this.idKanbanColumn = idKanbanColumn;
         this.idCustomer = idCustomer;
         this.isPublic = isPublic;
         this.title = title;
         this.description = description;
+        this.creationDate = creationDate;
         this.lastDate = lastDate;
     }
 

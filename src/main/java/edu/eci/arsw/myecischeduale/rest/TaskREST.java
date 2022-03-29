@@ -25,11 +25,11 @@ public class TaskREST {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping
-    private ResponseEntity<Task> save (@RequestBody Task task) {
-        Task temp = taskService.create(task);
+    @PostMapping("/save")
+    private ResponseEntity<Boolean> save (@RequestBody Task task) {
         try {
-            return ResponseEntity.created(new URI("/api/task"+temp.getId())).body(temp);
+            taskService.create(task);
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -46,13 +46,9 @@ public class TaskREST {
         }
     }
 
-    /*@PostMapping
-    private ResponseEntity<Optional<Task>> getTaskByKanabanColumn(@PathParam("estado")String estado) {
-        Optional<Task> tasks = taskService.findByKanbanName(estado);
-        try {
-            return ResponseEntity.created(new URI("/api/task"+estado)).body(tasks);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }*/
+    @GetMapping("/getByColumn")
+    private ResponseEntity<List<Task>> getTaskByKanabanColumn(@PathParam("id")Long id) {
+        List<Task> respuesta = taskService.findByIdKanbanColumn(id);
+        return ResponseEntity.ok(respuesta);
+    }
 }
