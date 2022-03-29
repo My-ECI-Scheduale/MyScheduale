@@ -26,27 +26,18 @@ public class Task {
     private Customer idCustomer;
     @Column(name = "isPublic", nullable = false)
     private boolean isPublic;
-    @Column(name = "Title", nullable = false)
-    private String title;
     @Column(name = "Description", nullable = false)
     private String description;
-    @Column(name = "CreationDate", nullable = false)
-    private Date creationDate;
-    @Column(name = "LastDate", nullable = false)
-    private Date lastDate;
 
     
 
-    public Task(Long id, KanbanColumn idKanbanColumn, Customer idCustomer, boolean isPublic, String title,
-            String description, Date creationDate, Date lastDate) {
+    public Task(Long id, KanbanColumn idKanbanColumn, Customer idCustomer, boolean isPublic,
+            String description) {
         this.id = id;
         this.idKanbanColumn = idKanbanColumn;
         this.idCustomer = idCustomer;
         this.isPublic = isPublic;
-        this.title = title;
         this.description = description;
-        this.creationDate = creationDate;
-        this.lastDate = lastDate;
     }
 
     public Task() {}
@@ -83,13 +74,6 @@ public class Task {
         this.isPublic = isPublic;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getDescription() {
         return description;
@@ -98,27 +82,10 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Date getLastDate() {
-        return lastDate;
-    }
-
-    public void setLastDate(Date lastDate) {
-        this.lastDate = lastDate;
-    }
-
     
     @Override
     public String toString() {
-        return "Task{id="+id+",idKanbanColumn="+idKanbanColumn+",idCustomer="+idCustomer+", isPublic="+isPublic+", title="+title+",description="+description+", creationDate="+creationDate+", lastDate="+lastDate+")";
+        return "Task{id="+id+",idKanbanColumn="+idKanbanColumn+",idCustomer="+idCustomer+", isPublic="+isPublic+",description="+description+"}";
     }
     
 }
