@@ -3508,7 +3508,7 @@ mark {
 }
 
 :root {
-    --cd-color-event-1: hsl(199, 25%, 46%);
+    --cd-color-event-1: #55d6abf1;
     --cd-color-event-1-h: 199;
     --cd-color-event-1-s: 25%;
     --cd-color-event-1-l: 46%;

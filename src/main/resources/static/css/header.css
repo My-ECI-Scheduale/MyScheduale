@@ -28,9 +28,10 @@ nav li {
     margin-left: 70px;
     padding-top: 23px;
     position: relative;
+    text-align: center;
 }
 
-nav a {
+nav a,p,li {
     color: #444;
     text-decoration: none;
     text-transform: uppercase;

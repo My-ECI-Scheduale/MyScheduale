@@ -38,7 +38,7 @@ public class ScheduleREST {
     private ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
         Schedule temp = scheduleService.create(schedule);
         try {
-            return ResponseEntity.created(new URI("/api/schedule" + temp.getId())).body(temp);
+            return ResponseEntity.created(new URI("/api/schedule"+temp.getId())).body(temp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

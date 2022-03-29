@@ -118,8 +118,7 @@ public class Task {
     
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+        return "Task{id="+id+",idKanbanColumn="+idKanbanColumn+",idCustomer="+idCustomer+", isPublic="+isPublic+", title="+title+",description="+description+", creationDate="+creationDate+", lastDate="+lastDate+")";
     }
     
 }
