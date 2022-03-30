@@ -37,6 +37,9 @@ insert into kanban_columns (id,id_kanban,"name") values (7,3,'TO_DO');
 insert into kanban_columns (id,id_kanban,"name") values (8,3,'DOING');
 insert into kanban_columns (id,id_kanban,"name") values (9,3,'DONE');
 
+
+
+DELETE FROM public.tasks;
 insert into tasks (id ,description,is_public,id_customer,id_kanban_column) values (1,'Realizar tarea 1',true,0,1);
 insert into tasks (id ,description,is_public,id_customer,id_kanban_column) values (2,'Realizar tarea 2',true,0,2);
 insert into tasks (id, description,is_public,id_customer,id_kanban_column) values (3,'Realizar tarea 3',true,0,3);

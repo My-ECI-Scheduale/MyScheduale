@@ -29,6 +29,10 @@ public class CDate implements Serializable{
     @JoinColumn(name = "id_assignature", nullable = false)
     private Assignature idAssignature;
 
+    @Override
+    public String toString() {
+        return "{id:"+id+",horaInicio:"+horaInicio+",horaFinal:"+horaFinal+", dia:"+dia+",idAssignature:"+idAssignature.toString()+"}";
+    }
     
     public CDate() {}
 

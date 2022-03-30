@@ -5,7 +5,6 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.*;
-import edu.eci.arsw.myecischedule.model.KanbanColumn;
 import edu.eci.arsw.myecischedule.model.Packet;
 import edu.eci.arsw.myecischedule.model.Task;
 import edu.eci.arsw.myecischedule.repository.CustomerRepository;
@@ -28,19 +27,17 @@ public class STOMPMessagesHandler {
 	public synchronized void handlePointEvent(Packet ts ,@DestinationVariable String num) throws Exception {
         System.out.println(ts.toString());
         if(ts.getAction() != 'D'){
-            KanbanColumn k = kanbanColumnRepository.getById(ts.getIdcolumn());
-            System.out.println("XDXDXDXDXDXDXDXDXDXDXDXD"+ts.getTask().getId());
-            Task temp = taskRepository.getTask(ts.getTask().getId());
-            System.out.println("XDXDXDXDXDXDXDXDXDXDXDXD");
-            System.out.println(temp.toString());
-            ts.getTask().setIdCustomer(temp.getIdCustomer());
-            System.out.println("XDXDXDXDXDXDXDXDXDXDXDXD");
-            ts.getTask().setIdKanbanColumn(k);
-            taskRepository.save(ts.getTask());
-            msgt.convertAndSend("/topic/kanban."+num, ts);
+            msgt.convertAndSend("/topic/kanban."+num,ts);
+            Task temp = taskRepository.getTask(ts.getIdtask());
+            temp.setDescription(ts.getDescription());
+            temp.setPublic(ts.isIpublic());
+            if(ts.getIdcolumn()!=temp.getIdKanbanColumn().getId()){
+                temp.setIdKanbanColumn(kanbanColumnRepository.getById(ts.getIdcolumn()));
+            }
+            taskRepository.save(temp);
         }else{
             msgt.convertAndSend("/topic/kanban."+num, ts);
-            taskRepository.deleteById(ts.getTask().getId());
+            taskRepository.deleteById(ts.getIdtask());
         }
 	}
 }

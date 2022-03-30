@@ -19,7 +19,10 @@ public class Assignature implements Serializable{
     private String name;
 
 
-
+    @Override
+    public String toString() {
+        return "{id:"+id+",name:"+name+"}";
+    }
 
     public Assignature(Long id, String name) {
         this.id = id;
@@ -42,10 +45,5 @@ public class Assignature implements Serializable{
 
     public void setName(String name) {
         this.name = name;
-    }
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
     }
 }

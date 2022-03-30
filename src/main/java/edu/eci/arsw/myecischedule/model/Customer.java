@@ -17,6 +17,11 @@ public class Customer implements Serializable{
     private String name;
     private String tokenjwt;
 
+    @Override
+    public String toString() {
+        return "{ id:"+id+",idKanbanColumn:"+name+",tokenjwt:"+tokenjwt+" }";
+    }
+
     public String getTokenjwt() {
         return tokenjwt;
     }

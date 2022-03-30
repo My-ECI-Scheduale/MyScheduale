@@ -20,11 +20,17 @@ public class Kanban implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "creation_Date", nullable = false)
-    private Date CreationDate;
+    private Date creationDate;
     
     @ManyToOne
     @JoinColumn(name = "assignatureId", nullable = false)
     private Assignature assignatureid;
+
+
+    @Override
+    public String toString() {
+        return "{id:"+id+",assignatureId:"+assignatureid.toString()+",creationDate:"+creationDate+"}";
+    }
 
     public Kanban() {}
 
@@ -36,7 +42,7 @@ public class Kanban implements Serializable{
 
     public Kanban(Long id, Date creationDate, Assignature assignatureid) {
         this.id = id;
-        CreationDate = creationDate;
+        this.creationDate = creationDate;
         this.assignatureid = assignatureid;
     }
 
@@ -49,21 +55,14 @@ public class Kanban implements Serializable{
     }
 
     public Date getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
-        CreationDate = creationDate;
+        this.creationDate = creationDate;
     }
     public void setId(Long id) {
         this.id = id;
     }
 
-
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
-    }
 }

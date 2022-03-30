@@ -85,7 +85,7 @@ public class Task implements Serializable{
     
     @Override
     public String toString() {
-        return "Task{id="+id+",idKanbanColumn="+idKanbanColumn+",idCustomer="+idCustomer+", isPublic="+isPublic+",description="+description+"}";
+        return "{id:"+id+",idKanbanColumn:"+(idKanbanColumn!=null?idKanbanColumn.toString():"null")+",idCustomer:"+(idCustomer!=null?idCustomer.toString():"null")+", isPublic:"+isPublic+",description:"+description+"}";
     }
     
 }

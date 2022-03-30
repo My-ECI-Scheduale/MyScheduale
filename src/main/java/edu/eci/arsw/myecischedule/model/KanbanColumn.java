@@ -24,6 +24,12 @@ public class KanbanColumn implements Serializable{
     @Column(name = "Name", nullable = false)
     private String name;
 
+
+    @Override
+    public String toString() {
+        return "{id:"+id+",IdKanban:"+idKanban.toString()+",Name:"+name+"}";
+    }
+
     public KanbanColumn(Kanban idKanban, String name) {
         this.idKanban = idKanban;
         this.name = name;
@@ -65,9 +71,4 @@ public class KanbanColumn implements Serializable{
         return name;
     }
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
-    }
 }

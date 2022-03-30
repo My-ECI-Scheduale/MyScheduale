@@ -26,6 +26,12 @@ public class Schedule implements Serializable{
     @JoinColumn(name = "Owner", nullable = false)
     private Customer owner;
 
+
+    @Override
+    public String toString() {
+        return "{id:"+id+",CreationDate:"+creationDate+",Owner:"+owner.toString()+"}";
+    }
+    
     public Schedule(Customer owner) {
         this.creationDate = new Date();
         this.owner = owner;
@@ -57,9 +63,4 @@ public class Schedule implements Serializable{
         this.owner = owner;
     }
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
-    }
 }
