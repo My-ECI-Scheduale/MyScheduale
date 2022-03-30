@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "AssignatureXSchedule")
-public class AssignatureXSchedule{
+public class AssignatureXSchedule implements Serializable{
 
     @EmbeddedId
     public EventId id;

@@ -12,4 +12,7 @@ import edu.eci.arsw.myecischedule.model.Task;
 public interface TaskRepository extends JpaRepository<Task,Long>{
     @Query("select t from Task t where id_kanban_column =:idColumn")
     List<Task> findByIdKanbanColumn(@Param("idColumn") Long id);
+
+    @Query("select t from Task t where id =:id")
+    Task getTask(@Param("id") Long id);
 }

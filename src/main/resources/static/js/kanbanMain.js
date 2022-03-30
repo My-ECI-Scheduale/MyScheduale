@@ -81,21 +81,25 @@ var kanban = (function () {
             });
             // Add dragstart eventListeners
             $(".items").on("dragstart", ".kanban-item", function (event) {
+                console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                console.log(event.target.getAttribute("taskId"));
                 // To solve jquery dataTransfer issue
                 $.event.addProp('dataTransfer');
                 event.target.style.backgroundColor = "red";
-                console.log(event);
-                console.log(event.target.parentElement.id);
                 event.dataTransfer.setData("text/plain", event.target.parentElement.id);
-                var taskid = document.getElementById(event.dataTransfer.getData("text/plain")).firstChild.getAttribute("taskId");
+                var taskid = event.target.getAttribute("taskId");
                 var task = new Task(taskid, false, "");
-                var newPacket = new Packet(task, 'D', -1, sessionStorage.getItem("User"));
+                var newPacket = new Packet(task, 'M', event.target.getAttribute("columnId"), sessionStorage.getItem("User"));
                 stompClient.send("/app/kanban."+sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
             });
             // Add dragstart eventListeners
             $(".items").on("dragleave", ".kanban-item", function (event) {
                 // To solve jquery dataTransfer issue
-                event.target.style.backgroundColor = null;
+                var taskid = event.target.getAttribute("taskId");
+                console.log("-----------------------------------------");
+                var task = new Task(taskid, true, event.target.innerHTML);
+                var newPacket = new Packet(task, 'U', event.target.getAttribute("columnId"), sessionStorage.getItem("User"));
+                stompClient.send("/app/kanban."+sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
             });
             // Add dragover eventListeners
             $(".items").on("dragover", ".dropzone", function (event) {
@@ -132,11 +136,7 @@ var kanban = (function () {
                 const droppedElementId = event.dataTransfer.getData("text/plain");
                 console.log(event.dataTransfer.getData("text/plain"));
                 const droppedElement = document.getElementById(droppedElementId);
-
-                // 
                 insertAfter.after(droppedElement);
-
-
             });
             // Add drop delete eventListeners
             $(".items").on("drop", ".delete-dropzone", function (event) {
@@ -152,7 +152,6 @@ var kanban = (function () {
                 var newPacket = new Packet(task, 'D', -1, sessionStorage.getItem("User"));
                 stompClient.send("/app/kanban."+sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 droppedElement.remove();
-                
             });
         });
     }
@@ -168,9 +167,10 @@ var kanban = (function () {
                 module.create(packet.task);
             }
             else if (packet.action == 'U') {
-                var item = document.querySelectorAll('[taskId=\"' + packet.task.id + '\"]').parentElement;
+                var item = document.querySelector('[taskId=\"' + packet.task.id + '\"]');
                 if (item.innerHTML != packet.task.description) {
                     item.innerHTML = packet.task.description;
+                    item.style.backgroundColor = null;
                 }
                 else {
                     item.remove();
@@ -178,8 +178,14 @@ var kanban = (function () {
                 }
             }
             else if (!packet.task.isPublic) {
-                var item = document.querySelectorAll('[taskId=\"' + packet.task.id + '\"]');
-                item.parentElement.style.backgroundColor = "red";
+                console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                var item = document.querySelector('[taskId=\"' + packet.task.id + '\"]');
+                item.style.backgroundColor = "red";
+                item.setAttribute("isPublic", false);
+            }
+            else{
+                item.style.backgroundColor = null;
+                item.setAttribute("isPublic", true);
             }
         }
     }

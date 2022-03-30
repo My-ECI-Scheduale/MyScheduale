@@ -29,11 +29,15 @@ public class STOMPMessagesHandler {
         System.out.println(ts.toString());
         if(ts.getAction() != 'D'){
             KanbanColumn k = kanbanColumnRepository.getById(ts.getIdcolumn());
-            Task temp = taskRepository.getById(ts.getTask().getId());
+            System.out.println("XDXDXDXDXDXDXDXDXDXDXDXD"+ts.getTask().getId());
+            Task temp = taskRepository.getTask(ts.getTask().getId());
+            System.out.println("XDXDXDXDXDXDXDXDXDXDXDXD");
+            System.out.println(temp.toString());
             ts.getTask().setIdCustomer(temp.getIdCustomer());
+            System.out.println("XDXDXDXDXDXDXDXDXDXDXDXD");
             ts.getTask().setIdKanbanColumn(k);
-            msgt.convertAndSend("/topic/kanban."+num, ts);
             taskRepository.save(ts.getTask());
+            msgt.convertAndSend("/topic/kanban."+num, ts);
         }else{
             msgt.convertAndSend("/topic/kanban."+num, ts);
             taskRepository.deleteById(ts.getTask().getId());

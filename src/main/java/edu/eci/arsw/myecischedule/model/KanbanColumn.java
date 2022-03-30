@@ -1,5 +1,7 @@
 package edu.eci.arsw.myecischedule.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "KanbanColumns")
-public class KanbanColumn {
+public class KanbanColumn implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

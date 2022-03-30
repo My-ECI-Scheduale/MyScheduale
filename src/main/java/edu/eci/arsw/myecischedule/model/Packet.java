@@ -1,6 +1,8 @@
 package edu.eci.arsw.myecischedule.model;
 
-public class Packet {
+import java.io.Serializable;
+
+public class Packet implements Serializable{
     private Task task;
     private char action;
     private Long idcolumn;
@@ -39,4 +41,8 @@ public class Packet {
         this.idcolumn = idcolumn;
     }
     
+    @Override
+    public String toString() {
+        return "Task: "+ task.toString();
+    }
 }
