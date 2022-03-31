@@ -181,6 +181,7 @@ var kanban = (function () {
                 const droppedElement = document.getElementById(droppedElementId);
                 insertAfter.after(droppedElement);
                 var taskid = holder.firstChild.getAttribute("taskId");
+                holder.firstChild.removeAttribute("style");
                 var newPacket = new Packet(taskid, 'M', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, holder.firstChild.innerHTML);
                 stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 holding = false;
