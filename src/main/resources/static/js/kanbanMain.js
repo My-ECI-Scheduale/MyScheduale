@@ -3,10 +3,10 @@ var kanban = (function () {
     var module = kanbanApi;
     var stompClient = null;
     var holding = false;
-    var holder =null;
+    var holder = null;
 
     class Packet {
-        constructor(idtask, action, idcolumn, username,idcustomer, ipublic, description) {
+        constructor(idtask, action, idcolumn, username, idcustomer, ipublic, description) {
             this.idtask = idtask;
             this.idcustomer = idcustomer;
             this.ipublic = ipublic;
@@ -26,7 +26,7 @@ var kanban = (function () {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/kanban.' + sessionStorage.getItem("kanban"), function (eventbody) {
                 var packet = JSON.parse(eventbody.body);
-                var newPacket = new Packet(packet.idtask, packet.action, packet.idcolumn, packet.username,packet.idcustomer, packet.ipublic, packet.description);
+                var newPacket = new Packet(packet.idtask, packet.action, packet.idcolumn, packet.username, packet.idcustomer, packet.ipublic, packet.description);
                 verificarEvento(newPacket);
             });
         });
@@ -35,11 +35,9 @@ var kanban = (function () {
     function getKanbanData() {
         module.getKanban();
         loadEventListeners();
-        connectTopic();
     }
 
     function insertItem(element) {
-        console.log(element);
         var newItem = parseHtml("<div id=\"item" + module.getTaskCont() + "\" class=\"kanban-item\">"
             + "<div id=\"t" + module.getTaskCont() + "\" class=\"item-input\" draggable=\"true\" columnId=\"" + element.getAttribute("columnId") + "\" taskId=\"\"></div>"
             + "<div class=\"dropzone\"></div>"
@@ -55,90 +53,136 @@ var kanban = (function () {
         return t.content;
     }
 
+    function creacionTask(task){
+        if (!holding) {
+            holding = true;
+            holder=document.querySelector('[taskId=\"' + task.idtask + '\"]').parentElement;
+            localStorage.setItem('descriptioactualitem', "")
+            var popUp = window.open("/task.html", 'liveMatches', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=650,height=400');
+            popUp.onbeforeunload = function () {
+                var info;
+                if (localStorage.getItem('guardado')) {
+                    info = localStorage.getItem('descriptioactualitem');
+                    localStorage.removeItem('descriptioactualitem');
+                }
+                else {
+                    info = "Texto por defecto";
+                }
+                localStorage.removeItem('guardado');
+                var taskid = task.idtask;
+                holder.firstChild.innerHTML = info;
+                var newPacket = new Packet(taskid, 'C', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, info);
+                stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                holding = false;
+                holder = null;
+                sessionStorage.removeItem('descriptioactualitem');
+            };
+        }
+    }
+
     function loadEventListeners() {
+        connectTopic();
         $(document).ready(function () {
             // Add button + click eventListener CREATE
             $(".kanban-column").on("click", ".add-item", function (event) {
-                console.log(event);
-                console.log(event.target.parentElement.querySelector('.items'));
-                insertItem(event.target.parentElement.querySelector('.items'));
+                console.log(event.target.previousSibling.getAttribute("columnid"));
+                $.ajax({
+                    type:"POST",
+                    url:"/api/task/create?idcus="+sessionStorage.getItem('userId')+"&idcolum="+ event.target.previousSibling.getAttribute("columnid"),
+                    success:function(data){
+                        module.create(data)
+                        creacionTask(data);
+                    }
+                });
             });
             // Add double click eventListeners UPDATE
             $(".items").on("dblclick", ".item-input", function (event) {
                 // verificar isPublic en task
-                console.log(event);
-                console.log(event.target.id);
-                if (!event.target.hasAttribute("contenteditable")) {
-                    event.target.setAttribute("contenteditable", "true");
-                }
-                else {
-                    event.target.removeAttribute("contenteditable");
+                if (event.target.getAttribute("style") == null) {
+                    event.target.style.backgroundColor = "red";
+                    if (!holding) {
+                        holding = true;
+                        holder = event.target.parentElement;
+                        var taskid = event.target.getAttribute("taskId");
+                        var newPacket = new Packet(taskid, 'M', event.target.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, event.target.innerHTML);
+                        stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                        localStorage.setItem('descriptioactualitem', event.target.innerHTML)
+                        var popUp = window.open("/task.html", 'liveMatches', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=650,height=400');
+                        popUp.onbeforeunload = function () {
+                            var info;
+                            if (localStorage.getItem('guardado')) {
+                                info = localStorage.getItem('descriptioactualitem');
+                                localStorage.removeItem('descriptioactualitem');
+                            }
+                            else {
+                                info = holder.firstChild.innerHTML;
+                            }
+                            localStorage.removeItem('guardado');
+                            var taskid = holder.firstChild.getAttribute("taskId");
+                            holder.firstChild.innerHTML = info;
+                            var newPacket = new Packet(taskid, 'U', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, info);
+                            stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                            holding = false;
+                            holder = null;
+                            sessionStorage.removeItem('descriptioactualitem');
+                        };
+                    }
+                    event.target.removeAttribute("style");
                 }
             });
             // Add dragstart eventListeners
             $(".items").on("dragstart", ".kanban-item", function (event) {
-                console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-                console.log(event.target.getAttribute("taskId"));
-                // To solve jquery dataTransfer issue
-                $.event.addProp('dataTransfer');
-                event.target.style.backgroundColor = "red";
-                event.dataTransfer.setData("text/plain", event.target.parentElement.id);
-                if(!holding){
-                    
-                    holding = true;
-                    holder = event.target.parentElement;
-                    var taskid = event.target.getAttribute("taskId");
-                    var newPacket = new Packet(taskid, 'M', event.target.getAttribute("columnId"),  sessionStorage.getItem("User"),sessionStorage.getItem('userId'), false, event.target.innerHTML);
-                    stompClient.send("/app/kanban."+sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                console.log("ADAD")
+                if (event.target.getAttribute("style") == null) {
+                    // To solve jquery dataTransfer issue
+                    $.event.addProp('dataTransfer');
+                    event.target.style.backgroundColor = "red";
+                    event.dataTransfer.setData("text/plain", event.target.parentElement.id);
+                    if (!holding) {
+                        holding = true;
+                        holder = event.target.parentElement;
+                        var taskid = event.target.getAttribute("taskId");
+                        var newPacket = new Packet(taskid, 'M', event.target.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, event.target.innerHTML);
+                        stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                    }
                 }
             });
             // Add dragstart eventListeners
             $(".items").on("dragleave", ".kanban-item", function (event) {
                 // To solve jquery dataTransfer issue
-                event.target.parentElement.firstChild.style.backgroundColor = null;
+                event.target.parentElement.firstChild.removeAttribute("style");
             });
             // Add dragover eventListeners
             $(".items").on("dragover", ".dropzone", function (event) {
-                console.log(event);
                 event.preventDefault();
                 event.target.classList.add("dropzone-active")
-                console.log(event.target.classList);
             });
             $(".items").on("dragover", ".delete-dropzone", function (event) {
-                console.log(event);
                 event.preventDefault();
                 event.target.classList.add("delete-dropzone-active")
-                console.log(event.target.classList);
             });
             // Add dragLeave event to remove the dropzone-active class
             $(".items").on("dragleave", ".dropzone", function (event) {
-                console.log("even LEAV DROPZONE");
                 event.preventDefault();
                 event.target.classList.remove("dropzone-active")
             });
             $(".items").on("dragleave", ".delete-dropzone", function (event) {
-                console.log(event);
                 event.preventDefault();
                 event.target.classList.remove("delete-dropzone-active")
             });
             // Add drop eventListeners
             $(".items").on("drop", ".dropzone", function (event) {
                 event.preventDefault();
-                console.log("DOP DROPZONE");
                 event.target.classList.remove("dropzone-active")
                 // Get the element to insert after
                 const insertAfter = event.target.parentElement.classList.contains("kanban-item") ? event.target.parentElement : event.target;
                 // Get the dropped element and append
                 const droppedElementId = event.dataTransfer.getData("text/plain");
-                console.log(event.dataTransfer.getData("text/plain"));
                 const droppedElement = document.getElementById(droppedElementId);
                 insertAfter.after(droppedElement);
-                console.log(holder);
                 var taskid = holder.firstChild.getAttribute("taskId");
-                console.log("-----------------------------------------");
-                console.log(holder.firstChild);
-                var newPacket = new Packet(taskid, 'M', holder.parentElement.getAttribute("columnid"),  sessionStorage.getItem("User"),sessionStorage.getItem('userId'), true, holder.firstChild.innerHTML);
-                stompClient.send("/app/kanban."+sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                var newPacket = new Packet(taskid, 'M', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, holder.firstChild.innerHTML);
+                stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 holding = false;
                 holder = null;
 
@@ -146,16 +190,13 @@ var kanban = (function () {
             // Add drop delete eventListeners
             $(".items").on("drop", ".delete-dropzone", function (event) {
                 event.preventDefault();
-                console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-                console.log(holder);
                 event.target.classList.remove("delete-dropzone-active")
                 // Get the dropped element and append
                 const droppedElementId = event.dataTransfer.getData("text/plain");
-                console.log(event.dataTransfer.getData("text/plain"));
                 const droppedElement = document.getElementById(droppedElementId);
                 var taskid = document.getElementById(event.dataTransfer.getData("text/plain")).firstChild.getAttribute("taskId");
-                var newPacket = new Packet(taskid, 'D', holder.parentElement.getAttribute("columnId"),  sessionStorage.getItem("User"),sessionStorage.getItem('userId'), false, holder.firstChild.innerHTML);
-                stompClient.send("/app/kanban."+sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                var newPacket = new Packet(taskid, 'D', holder.parentElement.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, holder.firstChild.innerHTML);
+                stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 droppedElement.remove();
             });
         });
@@ -168,14 +209,16 @@ var kanban = (function () {
                 deleteItem.remove();
             }
             else if (packet.action == 'C') {
-                module.create(packet.task);
+                if(document.querySelector('[taskId=\"' + packet.idtask + '\"]')==null){
+                    module.create(packet);
+                }
             }
             else if (packet.action == 'U') {
-                var item = document.querySelector('[taskId=\"' + packet.idtask+ '\"]');
-                if (item.innerHTML != packet.task.description) {
-                    item.innerHTML = packet.task.description;
-                    item.style.backgroundColor = null;
+                var item = document.querySelector('[taskId=\"' + packet.idtask + '\"]');
+                if (item.innerHTML != packet.description) {
+                    item.innerHTML = packet.description;
                 }
+                item.removeAttribute("style");
             }
             else if (!packet.ipublic) {
                 console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -183,26 +226,26 @@ var kanban = (function () {
                 item.style.backgroundColor = "red";
                 item.setAttribute("isPublic", false);
             }
-            else{
+            else {
                 var item = document.querySelector('[taskId=\"' + packet.idtask + '\"]');
                 item.remove();
                 console.log(item);
-                item.setAttribute("columnid",packet.idcolumn);
-                item.style.backgroundColor = null;
+                item.setAttribute("columnid", packet.idcolumn);
+                item.removeAttribute("style");
                 item.setAttribute("isPublic", true);
                 var parent = document.createElement('div');
-                parent.setAttribute("class","kanban-item");
-                parent.setAttribute("id","item"+packet.idtask);
+                parent.setAttribute("class", "kanban-item");
+                parent.setAttribute("id", "item" + packet.idtask);
                 parent.appendChild(item);
                 var dro = document.createElement('div')
-                dro.setAttribute("class","dropzone");
+                dro.setAttribute("class", "dropzone");
                 parent.appendChild(dro);
                 var temp = Array.from(document.getElementsByClassName("items"));
                 console.log(packet.idcolumn);
-                temp.forEach(e=>{
-                        if(e.getAttribute("columnid")==packet.idcolumn){
-                            e.appendChild(parent);
-                        }
+                temp.forEach(e => {
+                    if (e.getAttribute("columnid") == packet.idcolumn) {
+                        e.appendChild(parent);
+                    }
                 });
             }
         }
@@ -210,7 +253,9 @@ var kanban = (function () {
 
     return {
         read: getKanbanData,
-        addItem: insertItem
+        addItem: insertItem,
+        loadlisteners:loadEventListeners
     }
 
 })();
+

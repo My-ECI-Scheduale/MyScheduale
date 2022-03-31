@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Task implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "IdKanbanColumn", nullable = false)
@@ -30,6 +30,13 @@ public class Task implements Serializable{
     private String description;
 
     
+
+    public Task(KanbanColumn idKanbanColumn, Customer idCustomer, boolean isPublic, String description) {
+        this.idKanbanColumn = idKanbanColumn;
+        this.idCustomer = idCustomer;
+        this.isPublic = isPublic;
+        this.description = description;
+    }
 
     public Task(Long id, KanbanColumn idKanbanColumn, Customer idCustomer, boolean isPublic,
             String description) {

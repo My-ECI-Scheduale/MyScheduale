@@ -138,6 +138,7 @@ body {
 .loginsubmit:active,
 .loginsubmit:focus,
 .loginsubmit:hover {
+    background-color: #303841;
     border: 2px solid #b700ff;
     outline: none;
 }

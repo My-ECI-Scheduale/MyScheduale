@@ -348,12 +348,13 @@
 				fetch("/api/schedule/assiganture?id="+element.id,{method:'GET'}).then(res=>res.json()).then(res=>{
 					res.forEach(date=>{
 						document.getElementById(date.dia).insertAdjacentHTML('beforeend',tareahtml(date.horaInicio,date.horaFinal,element.name,element.id));
+						
 					});
+					for(var i = 0; i < scheduleTemplateArray.length; i++) {
+						scheduleTemplateArray[i].placeEvents();
+					}
 			})
 			});
-			for(var i = 0; i < scheduleTemplateArray.length; i++) {
-				scheduleTemplateArray[i].RegenetareElements();
-			}
 		});
 	})();
 	

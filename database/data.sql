@@ -27,15 +27,15 @@ INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (3,3,current_timesta
 INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (4,4,current_timestamp);
 INSERT INTO KANBAN (id,assignature_Id,creation_date) VALUES (5,5,current_timestamp);
 
-insert into kanban_columns (id,id_kanban,"name") values (1,1,'TO_DO');
+insert into kanban_columns (id,id_kanban,"name") values (3,1,'TO_DO');
 insert into kanban_columns (id,id_kanban,"name") values (2,1,'DOING');
-insert into kanban_columns (id,id_kanban,"name") values (3,1,'DONE');
-insert into kanban_columns (id,id_kanban,"name") values (4,2,'TO_DO');
+insert into kanban_columns (id,id_kanban,"name") values (1,1,'DONE');
+insert into kanban_columns (id,id_kanban,"name") values (6,2,'TO_DO');
 insert into kanban_columns (id,id_kanban,"name") values (5,2,'DOING');
-insert into kanban_columns (id,id_kanban,"name") values (6,2,'DONE');
-insert into kanban_columns (id,id_kanban,"name") values (7,3,'TO_DO');
+insert into kanban_columns (id,id_kanban,"name") values (4,2,'DONE');
+insert into kanban_columns (id,id_kanban,"name") values (9,3,'TO_DO');
 insert into kanban_columns (id,id_kanban,"name") values (8,3,'DOING');
-insert into kanban_columns (id,id_kanban,"name") values (9,3,'DONE');
+insert into kanban_columns (id,id_kanban,"name") values (7,3,'DONE');
 
 
 
