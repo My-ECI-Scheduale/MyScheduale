@@ -16,6 +16,8 @@ var kanbanApi = (function(){
             type:"GET",
             url: "/api/kanban/getById?id="+sessionStorage.getItem("kanban")
         }).then(function (data) {
+            var assignatura = data[0].idKanban.assignatureid.name;
+            document.getElementById("nombreassignatura").innerHTML=assignatura;
             data.forEach(column => {
                 createColumn(column);
                 $.ajax({
@@ -39,6 +41,7 @@ var kanbanApi = (function(){
                 +"<div class=\"dropzone\"></div>"
                 +"</div>");
                 var nameColunm = document.querySelector('[columnId=\"' + task.idcolumn+ '\"]').getAttribute("id");
+                if(!task.ipublic)document.querySelector('[taskId=\"' +task.idtask + '\"]').style.backgroundColor = "red";
                 $("#"+nameColunm).append(newItem);
                 cont += 1;
     }
@@ -65,6 +68,7 @@ var kanbanApi = (function(){
                 +"<div class=\"dropzone\"></div>"
                 +"</div>");
                 $("#"+task.idKanbanColumn.name).append(newItem);
+                if(!task.public)document.querySelector('[taskId=\"' +task.id + '\"]').style.backgroundColor = "red";
                 cont += 1;
     }
 

@@ -85,7 +85,6 @@ var kanban = (function () {
         $(document).ready(function () {
             // Add button + click eventListener CREATE
             $(".kanban-column").on("click", ".add-item", function (event) {
-                console.log(event.target.previousSibling.getAttribute("columnid"));
                 $.ajax({
                     type:"POST",
                     url:"/api/task/create?idcus="+sessionStorage.getItem('userId')+"&idcolum="+ event.target.previousSibling.getAttribute("columnid"),
@@ -98,7 +97,7 @@ var kanban = (function () {
             // Add double click eventListeners UPDATE
             $(".items").on("dblclick", ".item-input", function (event) {
                 // verificar isPublic en task
-                if (event.target.getAttribute("style") == null) {
+                if (event.target.getAttribute("draggable")=="true") {
                     event.target.style.backgroundColor = "red";
                     if (!holding) {
                         holding = true;
@@ -132,8 +131,7 @@ var kanban = (function () {
             });
             // Add dragstart eventListeners
             $(".items").on("dragstart", ".kanban-item", function (event) {
-                console.log("ADAD")
-                if (event.target.getAttribute("style") == null) {
+                if (event.target.getAttribute("draggable")=="true") {
                     // To solve jquery dataTransfer issue
                     $.event.addProp('dataTransfer');
                     event.target.style.backgroundColor = "red";
@@ -199,6 +197,8 @@ var kanban = (function () {
                 var newPacket = new Packet(taskid, 'D', holder.parentElement.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, holder.firstChild.innerHTML);
                 stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 droppedElement.remove();
+                holding = false;
+                holder = null;
             });
         });
     }
@@ -220,20 +220,19 @@ var kanban = (function () {
                     item.innerHTML = packet.description;
                 }
                 item.removeAttribute("style");
+                item.setAttribute("draggable", true);
             }
             else if (!packet.ipublic) {
-                console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 var item = document.querySelector('[taskId=\"' + packet.idtask + '\"]');
                 item.style.backgroundColor = "red";
-                item.setAttribute("isPublic", false);
+                item.setAttribute("draggable", false);
             }
             else {
                 var item = document.querySelector('[taskId=\"' + packet.idtask + '\"]');
                 item.remove();
-                console.log(item);
                 item.setAttribute("columnid", packet.idcolumn);
                 item.removeAttribute("style");
-                item.setAttribute("isPublic", true);
+                item.setAttribute("draggable", true);
                 var parent = document.createElement('div');
                 parent.setAttribute("class", "kanban-item");
                 parent.setAttribute("id", "item" + packet.idtask);
@@ -242,7 +241,6 @@ var kanban = (function () {
                 dro.setAttribute("class", "dropzone");
                 parent.appendChild(dro);
                 var temp = Array.from(document.getElementsByClassName("items"));
-                console.log(packet.idcolumn);
                 temp.forEach(e => {
                     if (e.getAttribute("columnid") == packet.idcolumn) {
                         e.appendChild(parent);
