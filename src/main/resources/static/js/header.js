@@ -1,4 +1,4 @@
 function logout() {
-    sessionStorage.removeItem("User");
-    window.location.href = "/";
+  sessionStorage.removeItem("User");
+  window.location.href = "/";
 }
