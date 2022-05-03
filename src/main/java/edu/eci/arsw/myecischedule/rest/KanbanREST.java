@@ -1,8 +1,12 @@
 package edu.eci.arsw.myecischedule.rest;
 
 import java.util.List;
-
 import javax.websocket.server.PathParam;
+
+import com.azure.messaging.servicebus.ServiceBusClientBuilder;
+import com.azure.messaging.servicebus.ServiceBusMessage;
+import com.azure.messaging.servicebus.ServiceBusSenderClient;
+import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +26,8 @@ import edu.eci.arsw.myecischedule.service.KanbanService;
 @RestController
 public class KanbanREST {
 
+    static String connectionString = "Endpoint=sb://myecischedule.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=lpgUwYkLzW82790Avf9OGBfStIelBGgkw8zr5BmtS/E=";
+    static String topicName = "topicosmyecischeduale";
     @Autowired
     private KanbanService kanbanService;
     @Autowired
@@ -42,7 +48,7 @@ public class KanbanREST {
     @PostMapping("/api/kanban")
     private void momPost(@RequestBody Packet ts) {
         if (ts.getAction() != 'D') {
-            msgt.convertAndSend("/topic/kanban." + ts.getKanban(), ts);
+            sendtoTopic(ts);
             Task temp = taskRepository.getTask(ts.getIdtask());
             temp.setDescription(ts.getDescription());
             temp.setPublic(ts.isIpublic());
@@ -51,8 +57,23 @@ public class KanbanREST {
             }
             taskRepository.save(temp);
         } else {
-            msgt.convertAndSend("/topic/kanban." + ts.getKanban(), ts);
+            sendtoTopic(ts);
             taskRepository.deleteById(ts.getIdtask());
         }
+    }
+
+    private void sendtoTopic(Packet ts) {
+        System.out.println("entro");
+        // create a Service Bus Sender client for the queue
+        ServiceBusSenderClient senderClient = new ServiceBusClientBuilder()
+                .connectionString(connectionString)
+                .sender()
+                .topicName(topicName)
+                .buildClient();
+
+        // send one message to the topic
+        ServiceBusMessage bus = new ServiceBusMessage(new Gson().toJson(ts));
+        bus.setContentType("application/json");
+        senderClient.sendMessage(bus);
     }
 }
