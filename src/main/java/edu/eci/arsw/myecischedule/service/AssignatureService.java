@@ -28,6 +28,9 @@ public class AssignatureService {
     }
 
     public Optional<Assignature> findById(Long id){
+        for (type var : iterable) {
+            
+        }
         return assignatureRepository.findById(id);
     }
 }

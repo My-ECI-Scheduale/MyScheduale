@@ -6,7 +6,7 @@ var kanban = (function () {
     var holder = null;
 
     class Packet {
-        constructor(idtask, action, idcolumn, username, idcustomer, ipublic, description) {
+        constructor(idtask, action, idcolumn, username, idcustomer, ipublic, description, kanban) {
             this.idtask = idtask;
             this.idcustomer = idcustomer;
             this.ipublic = ipublic;
@@ -14,6 +14,7 @@ var kanban = (function () {
             this.action = action;
             this.idcolumn = idcolumn;
             this.username = username;
+            this.kanban = kanban;
         }
     }
 
@@ -26,7 +27,7 @@ var kanban = (function () {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/kanban.' + sessionStorage.getItem("kanban"), function (eventbody) {
                 var packet = JSON.parse(eventbody.body);
-                var newPacket = new Packet(packet.idtask, packet.action, packet.idcolumn, packet.username, packet.idcustomer, packet.ipublic, packet.description);
+                var newPacket = new Packet(packet.idtask, packet.action, packet.idcolumn, packet.username, packet.idcustomer, packet.ipublic, packet.description, sessionStorage.getItem("kanban"));
                 verificarEvento(newPacket);
             });
         });
@@ -71,8 +72,16 @@ var kanban = (function () {
                 localStorage.removeItem('guardado');
                 var taskid = task.idtask;
                 holder.firstChild.innerHTML = info;
-                var newPacket = new Packet(taskid, 'C', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, info);
-                stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                var newPacket = new Packet(taskid, 'C', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, info, sessionStorage.getItem("kanban"));
+                $.ajax({
+                    type:"POST",
+                    url: "/api/kanban",
+                    data: JSON.stringify(newPacket),
+                    dataType: 'json',
+                    contentType:"application/json; charset=utf-8",
+                });
+                console.log("NUMERO KANBAN: "+ sessionStorage.getItem("kanban"));
+                // stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 holding = false;
                 holder = null;
                 sessionStorage.removeItem('descriptioactualitem');
@@ -103,8 +112,16 @@ var kanban = (function () {
                         holding = true;
                         holder = event.target.parentElement;
                         var taskid = event.target.getAttribute("taskId");
-                        var newPacket = new Packet(taskid, 'M', event.target.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, event.target.innerHTML);
-                        stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                        var newPacket = new Packet(taskid, 'M', event.target.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, event.target.innerHTML, sessionStorage.getItem("kanban"));
+                        $.ajax({
+                            type:"POST",
+                            url: "/api/kanban",
+                            data: JSON.stringify(newPacket),
+                            dataType: 'json',
+                            contentType:"application/json; charset=utf-8",
+                        });
+                        console.log("NUMERO KANBAN: "+ sessionStorage.getItem("kanban"));
+                        // stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                         localStorage.setItem('descriptioactualitem', event.target.innerHTML)
                         var popUp = window.open("/task.html", 'liveMatches', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=650,height=400');
                         popUp.onbeforeunload = function () {
@@ -119,8 +136,16 @@ var kanban = (function () {
                             localStorage.removeItem('guardado');
                             var taskid = holder.firstChild.getAttribute("taskId");
                             holder.firstChild.innerHTML = info;
-                            var newPacket = new Packet(taskid, 'U', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, info);
-                            stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                            var newPacket = new Packet(taskid, 'U', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, info, sessionStorage.getItem("kanban"));
+                            $.ajax({
+                                type:"POST",
+                                url: "/api/kanban",
+                                data: JSON.stringify(newPacket),
+                                dataType: 'json',
+                                contentType:"application/json; charset=utf-8",
+                            });
+                            console.log("NUMERO KANBAN: "+ sessionStorage.getItem("kanban"));
+                            // stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                             holding = false;
                             holder = null;
                             sessionStorage.removeItem('descriptioactualitem');
@@ -140,8 +165,16 @@ var kanban = (function () {
                         holding = true;
                         holder = event.target.parentElement;
                         var taskid = event.target.getAttribute("taskId");
-                        var newPacket = new Packet(taskid, 'M', event.target.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, event.target.innerHTML);
-                        stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                        var newPacket = new Packet(taskid, 'M', event.target.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, event.target.innerHTML, sessionStorage.getItem("kanban"));
+                        $.ajax({
+                            type:"POST",
+                            url: "/api/kanban",
+                            data: JSON.stringify(newPacket),
+                            dataType: 'json',
+                            contentType:"application/json; charset=utf-8",
+                        });
+                        console.log("NUMERO KANBAN: "+ sessionStorage.getItem("kanban"));
+                        // stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                     }
                 }
             });
@@ -180,8 +213,16 @@ var kanban = (function () {
                 insertAfter.after(droppedElement);
                 var taskid = holder.firstChild.getAttribute("taskId");
                 holder.firstChild.removeAttribute("style");
-                var newPacket = new Packet(taskid, 'M', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, holder.firstChild.innerHTML);
-                stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                var newPacket = new Packet(taskid, 'M', holder.parentElement.getAttribute("columnid"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), true, holder.firstChild.innerHTML,sessionStorage.getItem("kanban"));
+                $.ajax({
+                    type:"POST",
+                    url: "/api/kanban",
+                    data: JSON.stringify(newPacket),
+                    dataType: 'json',
+                    contentType:"application/json; charset=utf-8",
+                });
+                console.log("NUMERO KANBAN: "+ sessionStorage.getItem("kanban"));
+                // stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 holding = false;
                 holder = null;
 
@@ -194,8 +235,16 @@ var kanban = (function () {
                 const droppedElementId = event.dataTransfer.getData("text/plain");
                 const droppedElement = document.getElementById(droppedElementId);
                 var taskid = document.getElementById(event.dataTransfer.getData("text/plain")).firstChild.getAttribute("taskId");
-                var newPacket = new Packet(taskid, 'D', holder.parentElement.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, holder.firstChild.innerHTML);
-                stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
+                var newPacket = new Packet(taskid, 'D', holder.parentElement.getAttribute("columnId"), sessionStorage.getItem("User"), sessionStorage.getItem('userId'), false, holder.firstChild.innerHTML, sessionStorage.getItem("kanban"));
+                $.ajax({
+                    type:"POST",
+                    url: "/api/kanban",
+                    data: JSON.stringify(newPacket),
+                    dataType: 'json',
+                    contentType:"application/json; charset=utf-8",
+                });
+                console.log("NUMERO KANBAN: "+ sessionStorage.getItem("kanban"));
+                // stompClient.send("/app/kanban." + sessionStorage.getItem("kanban"), {}, JSON.stringify(newPacket));
                 droppedElement.remove();
                 holding = false;
                 holder = null;

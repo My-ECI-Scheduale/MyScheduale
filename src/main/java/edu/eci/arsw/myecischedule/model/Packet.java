@@ -10,10 +10,23 @@ public class Packet implements Serializable{
     private String description;
     private boolean ipublic;
     private Long idcustomer;
+    private Long kanban;
 
     
 
         
+    public Packet(char action, Long idcolumn, String username, Long idtask, String description,
+            boolean ipublic, Long idCustomer, Long kanban) {
+        this.action = action;
+        this.idcolumn = idcolumn;
+        this.username = username;
+        this.idtask = idtask;
+        this.description = description;
+        this.ipublic = ipublic;
+        this.idcustomer = idCustomer;
+        this.kanban = kanban;
+    }
+
     public Packet(char action, Long idcolumn, String username, Long idtask, String description,
             boolean ipublic, Long idCustomer) {
         this.action = action;
@@ -25,6 +38,9 @@ public class Packet implements Serializable{
         this.idcustomer = idCustomer;
     }
 
+    public Packet(){
+        
+    }
     
 
     public boolean isIpublic() {
@@ -59,6 +75,18 @@ public class Packet implements Serializable{
     }
 
 
+    
+
+
+    public Long getKanban() {
+        return kanban;
+    }
+
+
+
+    public void setKanban(Long kanban) {
+        this.kanban = kanban;
+    }
 
 
 

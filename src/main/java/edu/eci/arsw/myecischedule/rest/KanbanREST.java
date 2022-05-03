@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.stomp.StompSession;
+import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.messaging.WebSocketStompClient;
+
 import edu.eci.arsw.myecischedule.model.KanbanColumn;
 import edu.eci.arsw.myecischedule.model.Packet;
 import edu.eci.arsw.myecischedule.model.Task;
@@ -21,7 +25,6 @@ import edu.eci.arsw.myecischedule.repository.TaskRepository;
 import edu.eci.arsw.myecischedule.service.KanbanService;
 
 @RestController
-@RequestMapping("/api/kanban")
 public class KanbanREST {
     
     @Autowired
@@ -35,16 +38,18 @@ public class KanbanREST {
     @Autowired
     TaskRepository taskRepository;
 
-    @GetMapping("/getById")
+
+    @GetMapping("/api/kanban/getById")
     private ResponseEntity<List<KanbanColumn>> getKanbanColumns(@PathParam("id")Long id){
         List<KanbanColumn> columns = kanbanService.getKanbanColumns(id);
         return ResponseEntity.ok(columns);
     }
-    @PostMapping("/kanban.{num}")
-    private void momPost(@RequestBody Packet ts ,@DestinationVariable String num){
+    @PostMapping("/api/kanban")
+    private void momPost(@RequestBody Packet ts){
         System.out.println(ts.toString());
+        System.out.println("NUMERO KANBAN: "+ ts.getKanban());
         if(ts.getAction() != 'D'){
-            msgt.convertAndSend("/topic/kanban."+num,ts);
+            msgt.convertAndSend("/topic/kanban."+ts.getKanban(),ts);
             Task temp = taskRepository.getTask(ts.getIdtask());
             temp.setDescription(ts.getDescription());
             temp.setPublic(ts.isIpublic());
@@ -53,7 +58,7 @@ public class KanbanREST {
             }
             taskRepository.save(temp);
         }else{
-            msgt.convertAndSend("/topic/kanban."+num, ts);
+            msgt.convertAndSend("/topic/kanban."+ts.getKanban(), ts);
             taskRepository.deleteById(ts.getIdtask());
         }
     }
