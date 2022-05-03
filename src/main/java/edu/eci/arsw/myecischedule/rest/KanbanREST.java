@@ -46,8 +46,6 @@ public class KanbanREST {
     }
     @PostMapping("/api/kanban")
     private void momPost(@RequestBody Packet ts){
-        System.out.println(ts.toString());
-        System.out.println("NUMERO KANBAN: "+ ts.getKanban());
         if(ts.getAction() != 'D'){
             msgt.convertAndSend("/topic/kanban."+ts.getKanban(),ts);
             Task temp = taskRepository.getTask(ts.getIdtask());

@@ -6,7 +6,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.*;
 import edu.eci.arsw.myecischedule.model.Packet;
-import edu.eci.arsw.myecischedule.model.Task;
 import edu.eci.arsw.myecischedule.repository.CustomerRepository;
 import edu.eci.arsw.myecischedule.repository.KanbanColumnRepository;
 import edu.eci.arsw.myecischedule.repository.TaskRepository;
