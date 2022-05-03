@@ -22,7 +22,6 @@ public class CustomerREST {
     @PostMapping("/login")
     private ResponseEntity<Optional<Customer>> getCustomerByName(@PathParam("name")String name){
         Optional<Customer> user = customerService.findByName(name);
-        System.out.println(user.isPresent());
         return ResponseEntity.ok(user);
     }
 }
