@@ -35,15 +35,13 @@ var kanbanApi = (function(){
     }
 
     function createItemJson(task){
-        console.log(task);
-        var newItem = parseHtml("<div id=\"item"+cont+"\" class=\"kanban-item\">"
+        var newItem = parseHtml("<div id=\"item"+task.idtask+"\" class=\"kanban-item\">"
                 +"<div id=\"t"+cont+"\" class=\"item-input\" draggable=\"" +task.ipublic+ "\" columnId=\""+task.idcolumn+"\" taskId=\""+task.idtask+"\">"+task.description+"</div>"
                 +"<div class=\"dropzone\"></div>"
                 +"</div>");
                 var nameColunm = document.querySelector('[columnId=\"' + task.idcolumn+ '\"]').getAttribute("id");
                 if(!task.ipublic)document.querySelector('[taskId=\"' +task.idtask + '\"]').style.backgroundColor = "red";
                 $("#"+nameColunm).append(newItem);
-                cont += 1;
     }
 
     function createColumn(column){
@@ -63,13 +61,12 @@ var kanbanApi = (function(){
     }
 
     function createItem(task){
-        var newItem = parseHtml("<div id=\"item"+cont+"\" class=\"kanban-item\">"
-                +"<div id=\"t"+cont+"\" class=\"item-input\" draggable=\"" +task.public+ "\" columnId=\""+task.idKanbanColumn.id+"\" taskId=\""+task.id+"\">"+task.description+"</div>"
+        var newItem = parseHtml("<div id=\"item"+task.id+"\" class=\"kanban-item\">"
+                +"<div id=\"t"+task.id+"\" class=\"item-input\" draggable=\"" +task.public+ "\" columnId=\""+task.idKanbanColumn.id+"\" taskId=\""+task.id+"\">"+task.description+"</div>"
                 +"<div class=\"dropzone\"></div>"
                 +"</div>");
                 $("#"+task.idKanbanColumn.name).append(newItem);
                 if(!task.public)document.querySelector('[taskId=\"' +task.id + '\"]').style.backgroundColor = "red";
-                cont += 1;
     }
 
     function parseHtml(html){

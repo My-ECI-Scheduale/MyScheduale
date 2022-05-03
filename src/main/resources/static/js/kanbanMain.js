@@ -228,24 +228,18 @@ var kanban = (function () {
                 item.setAttribute("draggable", false);
             }
             else {
-                var item = document.querySelector('[taskId=\"' + packet.idtask + '\"]');
+                var item = document.getElementById("item"+packet.idtask);
                 item.remove();
-                item.setAttribute("columnid", packet.idcolumn);
-                item.removeAttribute("style");
-                item.setAttribute("draggable", true);
-                var parent = document.createElement('div');
-                parent.setAttribute("class", "kanban-item");
-                parent.setAttribute("id", "item" + packet.idtask);
-                parent.appendChild(item);
-                var dro = document.createElement('div')
-                dro.setAttribute("class", "dropzone");
-                parent.appendChild(dro);
                 var temp = Array.from(document.getElementsByClassName("items"));
                 temp.forEach(e => {
                     if (e.getAttribute("columnid") == packet.idcolumn) {
-                        e.appendChild(parent);
+                        e.appendChild(item);
                     }
                 });
+                var item2 = document.getElementById("t"+packet.idtask);
+                item2.setAttribute("columnid", packet.idcolumn);
+                item2.removeAttribute("style");
+                item2.setAttribute("draggable", true);
             }
         }
     }
