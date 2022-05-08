@@ -25,7 +25,7 @@ var kanban = (function () {
       this.kanban = kanban;
     }
   }
-
+  /**
   function connectTopic() {
     console.info("Connecting to WS...");
     var socket = new SockJS("/stompendpoint");
@@ -51,6 +51,31 @@ var kanban = (function () {
         }
       );
     });
+  }
+  */
+  function connectTopic() {
+    console.info("Connecting to WS...");
+    var socket = new WebSocket(
+      "wss://topicmyecischedule.webpubsub.azure.com/client/hubs/schedule?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3c3M6Ly90b3BpY215ZWNpc2NoZWR1bGUud2VicHVic3ViLmF6dXJlLmNvbS9jbGllbnQvaHVicy9zY2hlZHVsZSIsImlhdCI6MTY1MjAzMjMxMywiZXhwIjoxNjUyMDM1OTEzfQ.tVS3TZ8wgji1CUrA120TODCvNb9yIKymDguWeXTEIXk"
+    );
+    socket.onopen = () => {
+      console.log("Connectado");
+    };
+    socket.onmessage = (event) => {
+      console.log(event.data);
+      var packet = JSON.parse(event.data);
+      var newPacket = new Packet(
+        packet.idtask,
+        packet.action,
+        packet.idcolumn,
+        packet.username,
+        packet.idcustomer,
+        packet.ipublic,
+        packet.description,
+        sessionStorage.getItem("kanban")
+      );
+      verificarEvento(newPacket);
+    };
   }
 
   function getKanbanData() {
