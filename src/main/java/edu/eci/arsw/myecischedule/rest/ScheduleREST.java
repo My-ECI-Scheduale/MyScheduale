@@ -9,6 +9,7 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,16 +35,18 @@ public class ScheduleREST {
     @Autowired
     private CDateService cDateService;
 
+    @CrossOrigin
     @PostMapping
     private ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
         Schedule temp = scheduleService.create(schedule);
         try {
-            return ResponseEntity.created(new URI("/api/schedule"+temp.getId())).body(temp);
+            return ResponseEntity.created(new URI("/api/schedule" + temp.getId())).body(temp);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
+    @CrossOrigin
     @GetMapping
     private ResponseEntity<?> getAllSchedules() {
         try {
@@ -56,6 +59,7 @@ public class ScheduleREST {
 
     }
 
+    @CrossOrigin
     @GetMapping("/one")
     private ResponseEntity<List<Assignature>> getSchedule() {
         try {
@@ -71,15 +75,15 @@ public class ScheduleREST {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/assiganture")
-    private ResponseEntity<List<CDate>> getAssignatureDAte(@PathParam("id")Long id){
+    private ResponseEntity<List<CDate>> getAssignatureDAte(@PathParam("id") Long id) {
         try {
             List<CDate> dias = cDateService.getCDates(id);
             return ResponseEntity.ok(dias);
-        }catch(Exception e)
-        {
-        e.printStackTrace();
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
