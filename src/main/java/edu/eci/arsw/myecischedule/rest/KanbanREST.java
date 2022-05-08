@@ -21,8 +21,10 @@ import edu.eci.arsw.myecischedule.model.Packet;
 import edu.eci.arsw.myecischedule.model.Task;
 import edu.eci.arsw.myecischedule.repository.CustomerRepository;
 import edu.eci.arsw.myecischedule.repository.KanbanColumnRepository;
+import edu.eci.arsw.myecischedule.repository.ModificationLogRepository;
 import edu.eci.arsw.myecischedule.repository.TaskRepository;
 import edu.eci.arsw.myecischedule.service.KanbanService;
+import edu.eci.arsw.myecischedule.service.ModificationLogService;
 
 @RestController
 public class KanbanREST {
@@ -39,6 +41,8 @@ public class KanbanREST {
     CustomerRepository customerRepository;
     @Autowired
     TaskRepository taskRepository;
+    @Autowired
+    ModificationLogRepository modificationLogRepository;
 
     @CrossOrigin
     @GetMapping("/api/kanban/getById")
@@ -50,6 +54,7 @@ public class KanbanREST {
     @CrossOrigin
     @PostMapping("/api/kanban")
     private void momPost(@RequestBody Packet ts) {
+        logs(ts);
         if (ts.getAction() != 'D') {
             sendtoTopic(ts);
             Task temp = taskRepository.getTask(ts.getIdtask());
@@ -63,6 +68,13 @@ public class KanbanREST {
             sendtoTopic(ts);
             taskRepository.deleteById(ts.getIdtask());
         }
+    }
+
+    private void logs(Packet ts) {
+        ModificationLogService t = new ModificationLogService();
+        t.setModificationLog(ts);
+        t.setModificationLogRepository(modificationLogRepository);
+        t.start();
     }
 
     private void sendtoTopic(Packet ts) {

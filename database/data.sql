@@ -10,7 +10,11 @@ INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (3,'11:30
 INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (4,'07:00','08:30','M',1);
 INSERT INTO DATE (id,hora_inicio,hora_final,dia,id_assignature) VALUES (5,'16:00','19:00','X',3);
 
-INSERT INTO CUSTOMERS (id,name) VALUES (0,'baez');
+INSERT INTO CUSTOMERS (id,name) VALUES (0,'Diego');
+INSERT INTO CUSTOMERS (id,name) VALUES (1,'baez');
+INSERT INTO CUSTOMERS (id,name) VALUES (2,'Majo');
+INSERT INTO CUSTOMERS (id,name) VALUES (3,'Kristhian');
+INSERT INTO CUSTOMERS (id,name) VALUES (24,'Sebastian');
 
 INSERT INTO schedules(id, creation_date, owner)VALUES (0,current_timestamp,0);
 
