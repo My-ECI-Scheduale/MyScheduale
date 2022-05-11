@@ -60,7 +60,7 @@ public class KanbanREST {
             Task temp = taskRepository.getTask(ts.getIdtask());
             temp.setDescription(ts.getDescription());
             temp.setPublic(ts.isIpublic());
-            if (ts.getIdcolumn() != temp.getIdKanbanColumn().getId()) {
+            if (!ts.getIdcolumn().equals(temp.getIdKanbanColumn().getId())) {
                 temp.setIdKanbanColumn(kanbanColumnRepository.getById(ts.getIdcolumn()));
             }
             taskRepository.save(temp);
