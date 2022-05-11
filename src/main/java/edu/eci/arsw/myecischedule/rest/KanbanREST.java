@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,14 +44,14 @@ public class KanbanREST {
     @Autowired
     ModificationLogRepository modificationLogRepository;
 
-    @CrossOrigin
+    
     @GetMapping("/api/kanban/getById")
     private ResponseEntity<List<KanbanColumn>> getKanbanColumns(@PathParam("id") Long id) {
         List<KanbanColumn> columns = kanbanService.getKanbanColumns(id);
         return ResponseEntity.ok(columns);
     }
 
-    @CrossOrigin
+    
     @PostMapping("/api/kanban")
     private void momPost(@RequestBody Packet ts) {
         logs(ts);

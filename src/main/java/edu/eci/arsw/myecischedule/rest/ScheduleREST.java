@@ -9,7 +9,7 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,9 +35,9 @@ public class ScheduleREST {
     @Autowired
     private CDateService cDateService;
 
-    @CrossOrigin
+    
     @PostMapping
-    private ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
+    public ResponseEntity<Schedule> save(@RequestBody Schedule schedule) {
         Schedule temp = scheduleService.create(schedule);
         try {
             return ResponseEntity.created(new URI("/api/schedule" + temp.getId())).body(temp);
@@ -46,9 +46,9 @@ public class ScheduleREST {
         }
     }
 
-    @CrossOrigin
+    
     @GetMapping
-    private ResponseEntity<?> getAllSchedules() {
+    public ResponseEntity<?> getAllSchedules() {
         try {
             List<Schedule> data = scheduleService.getAllSchedules();
             return new ResponseEntity<>(data, HttpStatus.ACCEPTED);
@@ -59,9 +59,9 @@ public class ScheduleREST {
 
     }
 
-    @CrossOrigin
+    
     @GetMapping("/one")
-    private ResponseEntity<List<Assignature>> getSchedule() {
+    public ResponseEntity<List<Assignature>> getSchedule() {
         try {
             List<AssignatureXSchedule> temp = assignaturexScheduleService.getwithScheduleID((long) 0);
             List<Assignature> res = new ArrayList<>();
@@ -75,9 +75,9 @@ public class ScheduleREST {
         }
     }
 
-    @CrossOrigin
+    
     @GetMapping("/assiganture")
-    private ResponseEntity<List<CDate>> getAssignatureDAte(@PathParam("id") Long id) {
+    public ResponseEntity<List<CDate>> getAssignatureDAte(@PathParam("id") Long id) {
         try {
             List<CDate> dias = cDateService.getCDates(id);
             return ResponseEntity.ok(dias);

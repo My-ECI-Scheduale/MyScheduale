@@ -5,7 +5,7 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,9 +31,9 @@ public class TaskREST {
     @Autowired
     private KanbanColumnService kanbanColumnService;
 
-    @CrossOrigin
+    
     @PostMapping("/save")
-    private ResponseEntity<Boolean> save(@RequestBody Task task) {
+    public ResponseEntity<Boolean> save(@RequestBody Task task) {
         try {
             taskService.create(task);
             return ResponseEntity.ok(true);
@@ -42,9 +42,9 @@ public class TaskREST {
         }
     }
 
-    @CrossOrigin
+    
     @PostMapping("/create")
-    private ResponseEntity<Packet> save(@PathParam("idcus") Long idcus, @PathParam("idcolum") Long idcolum) {
+    public ResponseEntity<Packet> save(@PathParam("idcus") Long idcus, @PathParam("idcolum") Long idcolum) {
         try {
             Customer cus = customerService.findById(idcus).get();
             KanbanColumn kan = kanbanColumnService.findById(idcolum).get();
@@ -58,9 +58,9 @@ public class TaskREST {
         }
     }
 
-    @CrossOrigin
+    
     @GetMapping
-    private ResponseEntity<?> getAllTasks() {
+    public ResponseEntity<?> getAllTasks() {
         try {
             List<Task> tasks = taskService.getAllTasks();
             return new ResponseEntity<>(tasks, HttpStatus.ACCEPTED);
@@ -70,9 +70,9 @@ public class TaskREST {
         }
     }
 
-    @CrossOrigin
+    
     @GetMapping("/getByColumn")
-    private ResponseEntity<List<Task>> getTaskByKanabanColumn(@PathParam("id") Long id) {
+    public ResponseEntity<List<Task>> getTaskByKanabanColumn(@PathParam("id") Long id) {
         List<Task> respuesta = taskService.findByIdKanbanColumn(id);
         return ResponseEntity.ok(respuesta);
     }
