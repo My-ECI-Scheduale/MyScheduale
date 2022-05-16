@@ -56,7 +56,7 @@ var kanban = (function () {
   function connectTopic() {
     console.info("Connecting to WS...");
     var socket = new WebSocket(
-      "wss://topicmyecischedule.webpubsub.azure.com/client/hubs/schedule?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3c3M6Ly90b3BpY215ZWNpc2NoZWR1bGUud2VicHVic3ViLmF6dXJlLmNvbS9jbGllbnQvaHVicy9zY2hlZHVsZSIsImlhdCI6MTY1MjI3Mjg4NiwiZXhwIjoxNjUyMzU5Mjg2fQ.b-TWGn7KmGl-zZiaqJoGh_xNzggn7MYgePPeJD6wZBs"
+      "wss://topicmyecischedule.webpubsub.azure.com/client/hubs/schedule?access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3c3M6Ly90b3BpY215ZWNpc2NoZWR1bGUud2VicHVic3ViLmF6dXJlLmNvbS9jbGllbnQvaHVicy9zY2hlZHVsZSIsImlhdCI6MTY1MjY1OTI0MywiZXhwIjoxNjUyNzQ1NjQzfQ.4mO2cBkR1pRUfSC8hLXOrdxEsqY1Rm7hX5EvK8X9tCw"
     );
     socket.onopen = () => {
       console.log("Connectado");
